@@ -1,0 +1,16 @@
+GAS LISTING /tmp/ccIcWViL.s 			page 1
+
+
+   1              		.file	"mojTest.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              	.Letext0:
+GAS LISTING /tmp/ccIcWViL.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mojTest.cpp
+
+NO UNDEFINED SYMBOLS

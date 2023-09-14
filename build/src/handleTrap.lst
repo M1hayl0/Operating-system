@@ -1,0 +1,1857 @@
+GAS LISTING /tmp/ccMBLuBU.s 			page 1
+
+
+   1              		.file	"handleTrap.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              		.align	2
+   7              		.globl	ecallHandleTrap
+   9              	ecallHandleTrap:
+  10              	.LFB33:
+  11              		.file 1 "src/handleTrap.cpp"
+   1:src/handleTrap.cpp **** #include "../h/syscall_c.hpp"
+   2:src/handleTrap.cpp **** #include "../test/printing.hpp"
+   3:src/handleTrap.cpp **** 
+   4:src/handleTrap.cpp **** extern "C" void trap();
+   5:src/handleTrap.cpp **** 
+   6:src/handleTrap.cpp **** extern "C" void ecallHandleTrap() {
+  12              		.loc 1 6 35
+  13              		.cfi_startproc
+  14 0000 130101FD 		addi	sp,sp,-48
+  15              		.cfi_def_cfa_offset 48
+  16 0004 23341102 		sd	ra,40(sp)
+  17 0008 23308102 		sd	s0,32(sp)
+  18              		.cfi_offset 1, -8
+  19              		.cfi_offset 8, -16
+  20 000c 13040103 		addi	s0,sp,48
+  21              		.cfi_def_cfa 8, 0
+   7:src/handleTrap.cpp ****     uint64 a0reg, a1reg, a2reg, a3reg, a4reg;
+  22              		.loc 1 7 5
+   8:src/handleTrap.cpp ****     __asm__ volatile("ld %0 , 10*8(fp)" : "=r" (a0reg));
+  23              		.loc 1 8 5
+  24              		.loc 1 8 56 is_stmt 0
+  25              	#APP
+  26              	# 8 "src/handleTrap.cpp" 1
+   9              	    __asm__ volatile("ld %0 , 11*8(fp)" : "=r" (a1reg));
+  27              		ld a6 , 10*8(fp)
+  28              	# 0 "" 2
+  29              	.LVL0:
+  30              		.loc 1 9 5 is_stmt 1
+  31              		.loc 1 9 56 is_stmt 0
+  32              	# 9 "src/handleTrap.cpp" 1
+  10              	    __asm__ volatile("ld %0 , 12*8(fp)" : "=r" (a2reg));
+  33              		ld a0 , 11*8(fp)
+  34              	# 0 "" 2
+  35              	.LVL1:
+  36              		.loc 1 10 5 is_stmt 1
+  37              		.loc 1 10 56 is_stmt 0
+  38              	# 10 "src/handleTrap.cpp" 1
+  11              	    __asm__ volatile("ld %0 , 13*8(fp)" : "=r" (a3reg));
+  39              		ld a1 , 12*8(fp)
+  40              	# 0 "" 2
+  41              	.LVL2:
+  42              		.loc 1 11 5 is_stmt 1
+  43              		.loc 1 11 56 is_stmt 0
+  44              	# 11 "src/handleTrap.cpp" 1
+  12              	    __asm__ volatile("ld %0 , 14*8(fp)" : "=r" (a4reg));
+  45              		ld a2 , 13*8(fp)
+  46              	# 0 "" 2
+GAS LISTING /tmp/ccMBLuBU.s 			page 2
+
+
+  47              	.LVL3:
+  48              		.loc 1 12 5 is_stmt 1
+  49              		.loc 1 12 56 is_stmt 0
+  50              	# 12 "src/handleTrap.cpp" 1
+  13              	
+  51              		ld a3 , 14*8(fp)
+  52              	# 0 "" 2
+  53              	.LVL4:
+  14:src/handleTrap.cpp ****     uint64 volatile scause;
+  54              		.loc 1 14 5 is_stmt 1
+  15:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, scause" : "=r" (scause));
+  55              		.loc 1 15 5
+  56              		.loc 1 15 57 is_stmt 0
+  57              	# 15 "src/handleTrap.cpp" 1
+  16              	
+  58              		csrr a5, scause
+  59              	# 0 "" 2
+  60              	#NO_APP
+  61 0028 2334F4FE 		sd	a5,-24(s0)
+  17:src/handleTrap.cpp ****     uint64 volatile sepc;
+  62              		.loc 1 17 5 is_stmt 1
+  18:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, sepc" : "=r" (sepc));
+  63              		.loc 1 18 5
+  64              		.loc 1 18 53 is_stmt 0
+  65              	#APP
+  66              	# 18 "src/handleTrap.cpp" 1
+  19              	
+  67              		csrr a5, sepc
+  68              	# 0 "" 2
+  69              	#NO_APP
+  70 0030 2330F4FE 		sd	a5,-32(s0)
+  20:src/handleTrap.cpp ****     uint64 volatile sstatus;
+  71              		.loc 1 20 5 is_stmt 1
+  21:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, sstatus" : "=r" (sstatus));
+  72              		.loc 1 21 5
+  73              		.loc 1 21 59 is_stmt 0
+  74              	#APP
+  75              	# 21 "src/handleTrap.cpp" 1
+  22              	
+  76              		csrr a5, sstatus
+  77              	# 0 "" 2
+  78              	#NO_APP
+  79 0038 233CF4FC 		sd	a5,-40(s0)
+  23:src/handleTrap.cpp ****     if(scause == 0x0000000000000008UL || scause == 0x0000000000000009UL) {
+  80              		.loc 1 23 5 is_stmt 1
+  81              	.LBB14:
+  82              		.loc 1 23 15 is_stmt 0
+  83 003c 033784FE 		ld	a4,-24(s0)
+  84              		.loc 1 23 39
+  85 0040 93078000 		li	a5,8
+  86 0044 6308F700 		beq	a4,a5,.L2
+  87              		.loc 1 23 49 discriminator 2
+  88 0048 033784FE 		ld	a4,-24(s0)
+  89              		.loc 1 23 39 discriminator 2
+  90 004c 93079000 		li	a5,9
+  91 0050 631EF702 		bne	a4,a5,.L21
+  92              	.L2:
+GAS LISTING /tmp/ccMBLuBU.s 			page 3
+
+
+  93              	.LBB15:
+  24:src/handleTrap.cpp ****         sepc += 4;
+  94              		.loc 1 24 9 is_stmt 1
+  95              		.loc 1 24 14 is_stmt 0
+  96 0054 833704FE 		ld	a5,-32(s0)
+  97 0058 93874700 		addi	a5,a5,4
+  98 005c 2330F4FE 		sd	a5,-32(s0)
+  25:src/handleTrap.cpp ****         uint64 volatile code = a0reg;
+  99              		.loc 1 25 9 is_stmt 1
+ 100              		.loc 1 25 25 is_stmt 0
+ 101 0060 233804FD 		sd	a6,-48(s0)
+  26:src/handleTrap.cpp **** 
+  27:src/handleTrap.cpp ****         switch (code) {
+ 102              		.loc 1 27 9 is_stmt 1
+ 103              	.LBB16:
+ 104              		.loc 1 27 17 is_stmt 0
+ 105 0064 833704FD 		ld	a5,-48(s0)
+ 106 0068 13072004 		li	a4,66
+ 107 006c 636CF702 		bgtu	a5,a4,.L3
+ 108 0070 93972700 		slli	a5,a5,2
+ 109 0074 17070000 		lla	a4,.L5
+ 109      13070700 
+ 110 007c B387E700 		add	a5,a5,a4
+ 111 0080 83A70700 		lw	a5,0(a5)
+ 112 0084 B387E700 		add	a5,a5,a4
+ 113 0088 67800700 		jr	a5
+ 114              		.section	.rodata
+ 115              		.align	2
+ 116              		.align	2
+ 117              	.L5:
+ 118 0000 00000000 		.word	.L3-.L5
+ 119 0004 00000000 		.word	.L17-.L5
+ 120 0008 00000000 		.word	.L16-.L5
+ 121 000c 00000000 		.word	.L3-.L5
+ 122 0010 00000000 		.word	.L3-.L5
+ 123 0014 00000000 		.word	.L3-.L5
+ 124 0018 00000000 		.word	.L3-.L5
+ 125 001c 00000000 		.word	.L3-.L5
+ 126 0020 00000000 		.word	.L3-.L5
+ 127 0024 00000000 		.word	.L3-.L5
+ 128 0028 00000000 		.word	.L3-.L5
+ 129 002c 00000000 		.word	.L3-.L5
+ 130 0030 00000000 		.word	.L3-.L5
+ 131 0034 00000000 		.word	.L3-.L5
+ 132 0038 00000000 		.word	.L3-.L5
+ 133 003c 00000000 		.word	.L3-.L5
+ 134 0040 00000000 		.word	.L3-.L5
+ 135 0044 00000000 		.word	.L15-.L5
+ 136 0048 00000000 		.word	.L14-.L5
+ 137 004c 00000000 		.word	.L13-.L5
+ 138 0050 00000000 		.word	.L12-.L5
+ 139 0054 00000000 		.word	.L3-.L5
+ 140 0058 00000000 		.word	.L3-.L5
+ 141 005c 00000000 		.word	.L3-.L5
+ 142 0060 00000000 		.word	.L3-.L5
+ 143 0064 00000000 		.word	.L3-.L5
+ 144 0068 00000000 		.word	.L3-.L5
+GAS LISTING /tmp/ccMBLuBU.s 			page 4
+
+
+ 145 006c 00000000 		.word	.L3-.L5
+ 146 0070 00000000 		.word	.L3-.L5
+ 147 0074 00000000 		.word	.L3-.L5
+ 148 0078 00000000 		.word	.L3-.L5
+ 149 007c 00000000 		.word	.L3-.L5
+ 150 0080 00000000 		.word	.L3-.L5
+ 151 0084 00000000 		.word	.L11-.L5
+ 152 0088 00000000 		.word	.L10-.L5
+ 153 008c 00000000 		.word	.L9-.L5
+ 154 0090 00000000 		.word	.L8-.L5
+ 155 0094 00000000 		.word	.L3-.L5
+ 156 0098 00000000 		.word	.L3-.L5
+ 157 009c 00000000 		.word	.L3-.L5
+ 158 00a0 00000000 		.word	.L3-.L5
+ 159 00a4 00000000 		.word	.L3-.L5
+ 160 00a8 00000000 		.word	.L3-.L5
+ 161 00ac 00000000 		.word	.L3-.L5
+ 162 00b0 00000000 		.word	.L3-.L5
+ 163 00b4 00000000 		.word	.L3-.L5
+ 164 00b8 00000000 		.word	.L3-.L5
+ 165 00bc 00000000 		.word	.L3-.L5
+ 166 00c0 00000000 		.word	.L3-.L5
+ 167 00c4 00000000 		.word	.L7-.L5
+ 168 00c8 00000000 		.word	.L3-.L5
+ 169 00cc 00000000 		.word	.L3-.L5
+ 170 00d0 00000000 		.word	.L3-.L5
+ 171 00d4 00000000 		.word	.L3-.L5
+ 172 00d8 00000000 		.word	.L3-.L5
+ 173 00dc 00000000 		.word	.L3-.L5
+ 174 00e0 00000000 		.word	.L3-.L5
+ 175 00e4 00000000 		.word	.L3-.L5
+ 176 00e8 00000000 		.word	.L3-.L5
+ 177 00ec 00000000 		.word	.L3-.L5
+ 178 00f0 00000000 		.word	.L3-.L5
+ 179 00f4 00000000 		.word	.L3-.L5
+ 180 00f8 00000000 		.word	.L3-.L5
+ 181 00fc 00000000 		.word	.L3-.L5
+ 182 0100 00000000 		.word	.L3-.L5
+ 183 0104 00000000 		.word	.L6-.L5
+ 184 0108 00000000 		.word	.L4-.L5
+ 185              		.text
+ 186              	.L21:
+ 187              	.LBE16:
+ 188              	.LBE15:
+  28:src/handleTrap.cpp ****             case MEM_ALLOC_CODE:
+  29:src/handleTrap.cpp ****                 void *retAlloc;
+  30:src/handleTrap.cpp ****                 uint64 size;
+  31:src/handleTrap.cpp ****                 size = a1reg;
+  32:src/handleTrap.cpp ****                 retAlloc = MemoryAllocator::mem_alloc(size);
+  33:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retAlloc));
+  34:src/handleTrap.cpp ****                 break;
+  35:src/handleTrap.cpp ****             case MEM_FREE_CODE:
+  36:src/handleTrap.cpp ****                 int retFree;
+  37:src/handleTrap.cpp ****                 void *adress;
+  38:src/handleTrap.cpp ****                 adress = (void *) a1reg;
+  39:src/handleTrap.cpp ****                 retFree = MemoryAllocator::mem_free(adress);
+  40:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retFree));
+GAS LISTING /tmp/ccMBLuBU.s 			page 5
+
+
+  41:src/handleTrap.cpp ****                 break;
+  42:src/handleTrap.cpp ****             case THREAD_CREATE_CODE:
+  43:src/handleTrap.cpp ****                 int retThreadCreate;
+  44:src/handleTrap.cpp ****                 TCB **handle;
+  45:src/handleTrap.cpp ****                 handle = (TCB **) a1reg;
+  46:src/handleTrap.cpp ****                 void (*start_routine)(void *);
+  47:src/handleTrap.cpp ****                 start_routine = (void (*)(void *)) a2reg;
+  48:src/handleTrap.cpp ****                 void *arg;
+  49:src/handleTrap.cpp ****                 arg = (void *) a3reg;
+  50:src/handleTrap.cpp ****                 void *stack;
+  51:src/handleTrap.cpp ****                 stack = (void *) a4reg;
+  52:src/handleTrap.cpp **** 
+  53:src/handleTrap.cpp ****                 retThreadCreate = TCB::createThread(handle, start_routine, arg, stack);
+  54:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retThreadCreate));
+  55:src/handleTrap.cpp ****                 break;
+  56:src/handleTrap.cpp ****             case THREAD_EXIT_CODE:
+  57:src/handleTrap.cpp ****                 int retThreadExit;
+  58:src/handleTrap.cpp ****                 if (TCB::running->isFinished()) retThreadExit = -1;
+  59:src/handleTrap.cpp ****                 else {
+  60:src/handleTrap.cpp ****                     TCB::running->setFinished(true);
+  61:src/handleTrap.cpp ****                     TCB::running->waitList();
+  62:src/handleTrap.cpp ****                     TCB::dispatch();
+  63:src/handleTrap.cpp ****                     retThreadExit = 0;
+  64:src/handleTrap.cpp ****                 }
+  65:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retThreadExit));
+  66:src/handleTrap.cpp ****                 break;
+  67:src/handleTrap.cpp ****             case THREAD_DISPATCH_CODE:
+  68:src/handleTrap.cpp ****                 TCB::timeSliceCounter = 0;
+  69:src/handleTrap.cpp ****                 TCB::dispatch();
+  70:src/handleTrap.cpp ****                 break;
+  71:src/handleTrap.cpp ****             case THREAD_JOIN_CODE:
+  72:src/handleTrap.cpp ****                 TCB *handle2;
+  73:src/handleTrap.cpp ****                 handle2 = (TCB *) a1reg;
+  74:src/handleTrap.cpp ****                 TCB::join(handle2);
+  75:src/handleTrap.cpp ****                 break;
+  76:src/handleTrap.cpp ****             case SEM_OPEN_CODE:
+  77:src/handleTrap.cpp ****                 Sem **handle3;
+  78:src/handleTrap.cpp ****                 handle3 = (Sem **) a1reg;
+  79:src/handleTrap.cpp ****                 unsigned init;
+  80:src/handleTrap.cpp ****                 init = (unsigned) a2reg;
+  81:src/handleTrap.cpp ****                 Sem::semOpen(handle3, init);
+  82:src/handleTrap.cpp ****                 break;
+  83:src/handleTrap.cpp ****             case SEM_CLOSE_CODE:
+  84:src/handleTrap.cpp ****                 Sem *handle4;
+  85:src/handleTrap.cpp ****                 handle4 = (Sem *) a1reg;
+  86:src/handleTrap.cpp ****                 Sem::semClose(handle4);
+  87:src/handleTrap.cpp ****                 break;
+  88:src/handleTrap.cpp ****             case SEM_WAIT_CODE:
+  89:src/handleTrap.cpp ****                 Sem *id1;
+  90:src/handleTrap.cpp ****                 id1 = (Sem *) a1reg;
+  91:src/handleTrap.cpp ****                 Sem::semWait(id1);
+  92:src/handleTrap.cpp ****                 break;
+  93:src/handleTrap.cpp ****             case SEM_SIGNAL_CODE:
+  94:src/handleTrap.cpp ****                 Sem *id2;
+  95:src/handleTrap.cpp ****                 id2 = (Sem *) a1reg;
+  96:src/handleTrap.cpp ****                 Sem::semSignal(id2);
+  97:src/handleTrap.cpp ****                 break;
+GAS LISTING /tmp/ccMBLuBU.s 			page 6
+
+
+  98:src/handleTrap.cpp ****             case SLEEP_CODE:
+  99:src/handleTrap.cpp ****                 int retSleep;
+ 100:src/handleTrap.cpp ****                 time_t time;
+ 101:src/handleTrap.cpp ****                 time = (time_t) a1reg;
+ 102:src/handleTrap.cpp ****                 TCB::timeSliceCounter = 0;
+ 103:src/handleTrap.cpp ****                 retSleep = TCB::sleep(time);
+ 104:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retSleep));
+ 105:src/handleTrap.cpp ****                 break;
+ 106:src/handleTrap.cpp ****             case CONSOLE_GETC_CODE:
+ 107:src/handleTrap.cpp ****                 char c1;
+ 108:src/handleTrap.cpp ****                 c1 = (char) Cons::getcI();
+ 109:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (c1));
+ 110:src/handleTrap.cpp ****                 break;
+ 111:src/handleTrap.cpp ****             case CONSOLE_PUTC_CODE:
+ 112:src/handleTrap.cpp ****                 char c2;
+ 113:src/handleTrap.cpp ****                 c2 = (char) a1reg;
+ 114:src/handleTrap.cpp ****                 Cons::putcO(c2);
+ 115:src/handleTrap.cpp ****                 break;
+ 116:src/handleTrap.cpp ****         }
+ 117:src/handleTrap.cpp ****     } else {
+ 118:src/handleTrap.cpp ****         printInt((int) scause);
+ 189              		.loc 1 118 9 is_stmt 1
+ 190              		.loc 1 118 17 is_stmt 0
+ 191 008c 033584FE 		ld	a0,-24(s0)
+ 192              	.LVL5:
+ 193 0090 13060000 		li	a2,0
+ 194              	.LVL6:
+ 195 0094 9305A000 		li	a1,10
+ 196              	.LVL7:
+ 197 0098 1B050500 		sext.w	a0,a0
+ 198 009c 97000000 		call	_Z8printIntiii@plt
+ 198      E7800000 
+ 199              	.LVL8:
+ 200              	.L3:
+ 201              	.LBE14:
+ 119:src/handleTrap.cpp ****     }
+ 120:src/handleTrap.cpp **** 
+ 121:src/handleTrap.cpp ****     __asm__ volatile ("csrw sepc, %0" : : "r" (sepc));
+ 202              		.loc 1 121 5 is_stmt 1
+ 203              		.loc 1 121 48 is_stmt 0
+ 204 00a4 833704FE 		ld	a5,-32(s0)
+ 205              		.loc 1 121 54
+ 206              	#APP
+ 207              	# 121 "src/handleTrap.cpp" 1
+ 122              	    __asm__ volatile ("csrw sstatus, %0" : : "r" (sstatus));
+ 208              		csrw sepc, a5
+ 209              	# 0 "" 2
+ 210              		.loc 1 122 5 is_stmt 1
+ 211              		.loc 1 122 51 is_stmt 0
+ 212              	#NO_APP
+ 213 00ac 833784FD 		ld	a5,-40(s0)
+ 214              		.loc 1 122 60
+ 215              	#APP
+ 216              	# 122 "src/handleTrap.cpp" 1
+ 123              	}
+ 217              		csrw sstatus, a5
+ 218              	# 0 "" 2
+GAS LISTING /tmp/ccMBLuBU.s 			page 7
+
+
+ 219              		.loc 1 123 1
+ 220              	#NO_APP
+ 221 00b4 83308102 		ld	ra,40(sp)
+ 222              		.cfi_remember_state
+ 223              		.cfi_restore 1
+ 224 00b8 03340102 		ld	s0,32(sp)
+ 225              		.cfi_restore 8
+ 226              		.cfi_def_cfa 2, 48
+ 227 00bc 13010103 		addi	sp,sp,48
+ 228              		.cfi_def_cfa_offset 0
+ 229 00c0 67800000 		jr	ra
+ 230              	.LVL9:
+ 231              	.L17:
+ 232              		.cfi_restore_state
+ 233              	.LBB24:
+ 234              	.LBB23:
+ 235              	.LBB22:
+ 236              	.LBB17:
+  28:src/handleTrap.cpp ****             case MEM_ALLOC_CODE:
+ 237              		.loc 1 28 13 is_stmt 1
+  29:src/handleTrap.cpp ****                 uint64 size;
+ 238              		.loc 1 29 17
+  30:src/handleTrap.cpp ****                 size = a1reg;
+ 239              		.loc 1 30 17
+  31:src/handleTrap.cpp ****                 retAlloc = MemoryAllocator::mem_alloc(size);
+ 240              		.loc 1 31 17
+  32:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retAlloc));
+ 241              		.loc 1 32 17
+  32:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retAlloc));
+ 242              		.loc 1 32 54 is_stmt 0
+ 243 00c4 97000000 		call	_ZN15MemoryAllocator9mem_allocEm@plt
+ 243      E7800000 
+ 244              	.LVL10:
+  33:src/handleTrap.cpp ****                 break;
+ 245              		.loc 1 33 17 is_stmt 1
+  33:src/handleTrap.cpp ****                 break;
+ 246              		.loc 1 33 71 is_stmt 0
+ 247              	#APP
+ 248              	# 33 "src/handleTrap.cpp" 1
+  34:src/handleTrap.cpp ****             case MEM_FREE_CODE:
+ 249              		sd a0, 10*8(fp)
+ 250              	# 0 "" 2
+ 251              		.loc 1 34 17 is_stmt 1
+ 252              	#NO_APP
+ 253 00d0 6FF05FFD 		j	.L3
+ 254              	.LVL11:
+ 255              	.L16:
+  35:src/handleTrap.cpp ****                 int retFree;
+ 256              		.loc 1 35 13
+  36:src/handleTrap.cpp ****                 void *adress;
+ 257              		.loc 1 36 17
+  37:src/handleTrap.cpp ****                 adress = (void *) a1reg;
+ 258              		.loc 1 37 17
+  38:src/handleTrap.cpp ****                 retFree = MemoryAllocator::mem_free(adress);
+ 259              		.loc 1 38 17
+  39:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retFree));
+ 260              		.loc 1 39 17
+GAS LISTING /tmp/ccMBLuBU.s 			page 8
+
+
+  39:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retFree));
+ 261              		.loc 1 39 52 is_stmt 0
+ 262 00d4 97000000 		call	_ZN15MemoryAllocator8mem_freeEPv@plt
+ 262      E7800000 
+ 263              	.LVL12:
+  40:src/handleTrap.cpp ****                 break;
+ 264              		.loc 1 40 17 is_stmt 1
+  40:src/handleTrap.cpp ****                 break;
+ 265              		.loc 1 40 70 is_stmt 0
+ 266              	#APP
+ 267              	# 40 "src/handleTrap.cpp" 1
+  41:src/handleTrap.cpp ****             case THREAD_CREATE_CODE:
+ 268              		sd a0, 10*8(fp)
+ 269              	# 0 "" 2
+ 270              		.loc 1 41 17 is_stmt 1
+ 271              	#NO_APP
+ 272 00e0 6FF05FFC 		j	.L3
+ 273              	.LVL13:
+ 274              	.L15:
+  42:src/handleTrap.cpp ****                 int retThreadCreate;
+ 275              		.loc 1 42 13
+  43:src/handleTrap.cpp ****                 TCB **handle;
+ 276              		.loc 1 43 17
+  44:src/handleTrap.cpp ****                 handle = (TCB **) a1reg;
+ 277              		.loc 1 44 17
+  45:src/handleTrap.cpp ****                 void (*start_routine)(void *);
+ 278              		.loc 1 45 17
+  46:src/handleTrap.cpp ****                 start_routine = (void (*)(void *)) a2reg;
+ 279              		.loc 1 46 17
+  47:src/handleTrap.cpp ****                 void *arg;
+ 280              		.loc 1 47 17
+  48:src/handleTrap.cpp ****                 arg = (void *) a3reg;
+ 281              		.loc 1 48 17
+  49:src/handleTrap.cpp ****                 void *stack;
+ 282              		.loc 1 49 17
+  50:src/handleTrap.cpp ****                 stack = (void *) a4reg;
+ 283              		.loc 1 50 17
+  51:src/handleTrap.cpp **** 
+ 284              		.loc 1 51 17
+  53:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retThreadCreate));
+ 285              		.loc 1 53 17
+  53:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retThreadCreate));
+ 286              		.loc 1 53 52 is_stmt 0
+ 287 00e4 97000000 		call	_ZN3TCB12createThreadEPPS_PFvPvES2_S2_@plt
+ 287      E7800000 
+ 288              	.LVL14:
+  54:src/handleTrap.cpp ****                 break;
+ 289              		.loc 1 54 17 is_stmt 1
+  54:src/handleTrap.cpp ****                 break;
+ 290              		.loc 1 54 78 is_stmt 0
+ 291              	#APP
+ 292              	# 54 "src/handleTrap.cpp" 1
+  55:src/handleTrap.cpp ****             case THREAD_EXIT_CODE:
+ 293              		sd a0, 10*8(fp)
+ 294              	# 0 "" 2
+ 295              		.loc 1 55 17 is_stmt 1
+ 296              	#NO_APP
+GAS LISTING /tmp/ccMBLuBU.s 			page 9
+
+
+ 297 00f0 6FF05FFB 		j	.L3
+ 298              	.LVL15:
+ 299              	.L14:
+  56:src/handleTrap.cpp ****                 int retThreadExit;
+ 300              		.loc 1 56 13
+  57:src/handleTrap.cpp ****                 if (TCB::running->isFinished()) retThreadExit = -1;
+ 301              		.loc 1 57 17
+  58:src/handleTrap.cpp ****                 else {
+ 302              		.loc 1 58 17
+  58:src/handleTrap.cpp ****                 else {
+ 303              		.loc 1 58 45 is_stmt 0
+ 304 00f4 97070000 		la	a5,_ZN3TCB7runningE
+ 304      83B70700 
+ 305 00fc 03B50700 		ld	a0,0(a5)
+ 306              	.LVL16:
+ 307              	.LBB18:
+ 308              	.LBB19:
+ 309              		.file 2 "src/../h/../h/TCB.hpp"
+   1:src/../h/../h/TCB.hpp **** #ifndef PROJECT_BASE_TCB_HPP
+   2:src/../h/../h/TCB.hpp **** #define PROJECT_BASE_TCB_HPP
+   3:src/../h/../h/TCB.hpp **** 
+   4:src/../h/../h/TCB.hpp **** #include "../lib/hw.h"
+   5:src/../h/../h/TCB.hpp **** #include "../h/Scheduler.hpp"
+   6:src/../h/../h/TCB.hpp **** #include "../h/Sleeping.hpp"
+   7:src/../h/../h/TCB.hpp **** 
+   8:src/../h/../h/TCB.hpp **** class TCB {
+   9:src/../h/../h/TCB.hpp **** public:
+  10:src/../h/../h/TCB.hpp ****     friend class Sem;
+  11:src/../h/../h/TCB.hpp ****     using Body = void (*)(void*);
+  12:src/../h/../h/TCB.hpp **** 
+  13:src/../h/../h/TCB.hpp ****     static int createThread(TCB **handle, Body body, void *arg, void *stack);
+  14:src/../h/../h/TCB.hpp ****     ~TCB();
+  15:src/../h/../h/TCB.hpp ****     static void yield();
+  16:src/../h/../h/TCB.hpp ****     static void dispatch();
+  17:src/../h/../h/TCB.hpp ****     static void join(TCB *handle);
+  18:src/../h/../h/TCB.hpp ****     void waitList();
+  19:src/../h/../h/TCB.hpp ****     static int sleep(time_t time);
+  20:src/../h/../h/TCB.hpp **** 
+  21:src/../h/../h/TCB.hpp ****     static TCB *running;
+  22:src/../h/../h/TCB.hpp **** 
+  23:src/../h/../h/TCB.hpp ****     bool isFinished() const { return finished; }
+ 310              		.loc 2 23 31 is_stmt 1
+ 311              		.loc 2 23 38 is_stmt 0
+ 312 0100 83478502 		lbu	a5,40(a0)
+ 313              	.LVL17:
+ 314              	.LBE19:
+ 315              	.LBE18:
+  58:src/handleTrap.cpp ****                 else {
+ 316              		.loc 1 58 17
+ 317 0104 63880700 		beqz	a5,.L22
+  58:src/handleTrap.cpp ****                 else {
+ 318              		.loc 1 58 63
+ 319 0108 9307F0FF 		li	a5,-1
+ 320              	.LVL18:
+ 321              	.L18:
+  65:src/handleTrap.cpp ****                 break;
+ 322              		.loc 1 65 17 is_stmt 1
+GAS LISTING /tmp/ccMBLuBU.s 			page 10
+
+
+  65:src/handleTrap.cpp ****                 break;
+ 323              		.loc 1 65 76 is_stmt 0
+ 324              	#APP
+ 325              	# 65 "src/handleTrap.cpp" 1
+  66:src/handleTrap.cpp ****             case THREAD_DISPATCH_CODE:
+ 326              		sd a5, 10*8(fp)
+ 327              	# 0 "" 2
+ 328              		.loc 1 66 17 is_stmt 1
+ 329              	#NO_APP
+ 330 0110 6FF05FF9 		j	.L3
+ 331              	.LVL19:
+ 332              	.L22:
+  60:src/handleTrap.cpp ****                     TCB::running->waitList();
+ 333              		.loc 1 60 21
+ 334              	.LBB20:
+ 335              	.LBB21:
+  24:src/../h/../h/TCB.hpp ****     void setFinished(bool f) { finished = f; }
+ 336              		.loc 2 24 32
+ 337              		.loc 2 24 41 is_stmt 0
+ 338 0114 93071000 		li	a5,1
+ 339 0118 2304F502 		sb	a5,40(a0)
+ 340              	.LVL20:
+ 341              	.LBE21:
+ 342              	.LBE20:
+  61:src/handleTrap.cpp ****                     TCB::dispatch();
+ 343              		.loc 1 61 21 is_stmt 1
+  61:src/handleTrap.cpp ****                     TCB::dispatch();
+ 344              		.loc 1 61 43 is_stmt 0
+ 345 011c 97000000 		call	_ZN3TCB8waitListEv@plt
+ 345      E7800000 
+ 346              	.LVL21:
+  62:src/handleTrap.cpp ****                     retThreadExit = 0;
+ 347              		.loc 1 62 21 is_stmt 1
+  62:src/handleTrap.cpp ****                     retThreadExit = 0;
+ 348              		.loc 1 62 34 is_stmt 0
+ 349 0124 97000000 		call	_ZN3TCB8dispatchEv@plt
+ 349      E7800000 
+ 350              	.LVL22:
+  63:src/handleTrap.cpp ****                 }
+ 351              		.loc 1 63 21 is_stmt 1
+  63:src/handleTrap.cpp ****                 }
+ 352              		.loc 1 63 35 is_stmt 0
+ 353 012c 93070000 		li	a5,0
+ 354 0130 6FF0DFFD 		j	.L18
+ 355              	.LVL23:
+ 356              	.L13:
+  67:src/handleTrap.cpp ****                 TCB::timeSliceCounter = 0;
+ 357              		.loc 1 67 13 is_stmt 1
+  68:src/handleTrap.cpp ****                 TCB::dispatch();
+ 358              		.loc 1 68 17
+  68:src/handleTrap.cpp ****                 TCB::dispatch();
+ 359              		.loc 1 68 39 is_stmt 0
+ 360 0134 97070000 		la	a5,_ZN3TCB16timeSliceCounterE
+ 360      83B70700 
+ 361 013c 23B00700 		sd	zero,0(a5)
+  69:src/handleTrap.cpp ****                 break;
+ 362              		.loc 1 69 17 is_stmt 1
+GAS LISTING /tmp/ccMBLuBU.s 			page 11
+
+
+  69:src/handleTrap.cpp ****                 break;
+ 363              		.loc 1 69 30 is_stmt 0
+ 364 0140 97000000 		call	_ZN3TCB8dispatchEv@plt
+ 364      E7800000 
+ 365              	.LVL24:
+  70:src/handleTrap.cpp ****             case THREAD_JOIN_CODE:
+ 366              		.loc 1 70 17 is_stmt 1
+ 367 0148 6FF0DFF5 		j	.L3
+ 368              	.LVL25:
+ 369              	.L12:
+  71:src/handleTrap.cpp ****                 TCB *handle2;
+ 370              		.loc 1 71 13
+  72:src/handleTrap.cpp ****                 handle2 = (TCB *) a1reg;
+ 371              		.loc 1 72 17
+  73:src/handleTrap.cpp ****                 TCB::join(handle2);
+ 372              		.loc 1 73 17
+  74:src/handleTrap.cpp ****                 break;
+ 373              		.loc 1 74 17
+  74:src/handleTrap.cpp ****                 break;
+ 374              		.loc 1 74 26 is_stmt 0
+ 375 014c 97000000 		call	_ZN3TCB4joinEPS_@plt
+ 375      E7800000 
+ 376              	.LVL26:
+  75:src/handleTrap.cpp ****             case SEM_OPEN_CODE:
+ 377              		.loc 1 75 17 is_stmt 1
+ 378 0154 6FF01FF5 		j	.L3
+ 379              	.LVL27:
+ 380              	.L11:
+  76:src/handleTrap.cpp ****                 Sem **handle3;
+ 381              		.loc 1 76 13
+  77:src/handleTrap.cpp ****                 handle3 = (Sem **) a1reg;
+ 382              		.loc 1 77 17
+  78:src/handleTrap.cpp ****                 unsigned init;
+ 383              		.loc 1 78 17
+  79:src/handleTrap.cpp ****                 init = (unsigned) a2reg;
+ 384              		.loc 1 79 17
+  80:src/handleTrap.cpp ****                 Sem::semOpen(handle3, init);
+ 385              		.loc 1 80 17
+  81:src/handleTrap.cpp ****                 break;
+ 386              		.loc 1 81 17
+  81:src/handleTrap.cpp ****                 break;
+ 387              		.loc 1 81 29 is_stmt 0
+ 388 0158 9B850500 		sext.w	a1,a1
+ 389              	.LVL28:
+ 390 015c 97000000 		call	_ZN3Sem7semOpenEPPS_j@plt
+ 390      E7800000 
+ 391              	.LVL29:
+  82:src/handleTrap.cpp ****             case SEM_CLOSE_CODE:
+ 392              		.loc 1 82 17 is_stmt 1
+ 393 0164 6FF01FF4 		j	.L3
+ 394              	.LVL30:
+ 395              	.L10:
+  83:src/handleTrap.cpp ****                 Sem *handle4;
+ 396              		.loc 1 83 13
+  84:src/handleTrap.cpp ****                 handle4 = (Sem *) a1reg;
+ 397              		.loc 1 84 17
+  85:src/handleTrap.cpp ****                 Sem::semClose(handle4);
+GAS LISTING /tmp/ccMBLuBU.s 			page 12
+
+
+ 398              		.loc 1 85 17
+  86:src/handleTrap.cpp ****                 break;
+ 399              		.loc 1 86 17
+  86:src/handleTrap.cpp ****                 break;
+ 400              		.loc 1 86 30 is_stmt 0
+ 401 0168 97000000 		call	_ZN3Sem8semCloseEPS_@plt
+ 401      E7800000 
+ 402              	.LVL31:
+  87:src/handleTrap.cpp ****             case SEM_WAIT_CODE:
+ 403              		.loc 1 87 17 is_stmt 1
+ 404 0170 6FF05FF3 		j	.L3
+ 405              	.LVL32:
+ 406              	.L9:
+  88:src/handleTrap.cpp ****                 Sem *id1;
+ 407              		.loc 1 88 13
+  89:src/handleTrap.cpp ****                 id1 = (Sem *) a1reg;
+ 408              		.loc 1 89 17
+  90:src/handleTrap.cpp ****                 Sem::semWait(id1);
+ 409              		.loc 1 90 17
+  91:src/handleTrap.cpp ****                 break;
+ 410              		.loc 1 91 17
+  91:src/handleTrap.cpp ****                 break;
+ 411              		.loc 1 91 29 is_stmt 0
+ 412 0174 97000000 		call	_ZN3Sem7semWaitEPS_@plt
+ 412      E7800000 
+ 413              	.LVL33:
+  92:src/handleTrap.cpp ****             case SEM_SIGNAL_CODE:
+ 414              		.loc 1 92 17 is_stmt 1
+ 415 017c 6FF09FF2 		j	.L3
+ 416              	.LVL34:
+ 417              	.L8:
+  93:src/handleTrap.cpp ****                 Sem *id2;
+ 418              		.loc 1 93 13
+  94:src/handleTrap.cpp ****                 id2 = (Sem *) a1reg;
+ 419              		.loc 1 94 17
+  95:src/handleTrap.cpp ****                 Sem::semSignal(id2);
+ 420              		.loc 1 95 17
+  96:src/handleTrap.cpp ****                 break;
+ 421              		.loc 1 96 17
+  96:src/handleTrap.cpp ****                 break;
+ 422              		.loc 1 96 31 is_stmt 0
+ 423 0180 97000000 		call	_ZN3Sem9semSignalEPS_@plt
+ 423      E7800000 
+ 424              	.LVL35:
+  97:src/handleTrap.cpp ****             case SLEEP_CODE:
+ 425              		.loc 1 97 17 is_stmt 1
+ 426 0188 6FF0DFF1 		j	.L3
+ 427              	.LVL36:
+ 428              	.L7:
+  98:src/handleTrap.cpp ****                 int retSleep;
+ 429              		.loc 1 98 13
+  99:src/handleTrap.cpp ****                 time_t time;
+ 430              		.loc 1 99 17
+ 100:src/handleTrap.cpp ****                 time = (time_t) a1reg;
+ 431              		.loc 1 100 17
+ 101:src/handleTrap.cpp ****                 TCB::timeSliceCounter = 0;
+ 432              		.loc 1 101 17
+GAS LISTING /tmp/ccMBLuBU.s 			page 13
+
+
+ 102:src/handleTrap.cpp ****                 retSleep = TCB::sleep(time);
+ 433              		.loc 1 102 17
+ 102:src/handleTrap.cpp ****                 retSleep = TCB::sleep(time);
+ 434              		.loc 1 102 39 is_stmt 0
+ 435 018c 97070000 		la	a5,_ZN3TCB16timeSliceCounterE
+ 435      83B70700 
+ 436 0194 23B00700 		sd	zero,0(a5)
+ 103:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retSleep));
+ 437              		.loc 1 103 17 is_stmt 1
+ 103:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (retSleep));
+ 438              		.loc 1 103 38 is_stmt 0
+ 439 0198 97000000 		call	_ZN3TCB5sleepEm@plt
+ 439      E7800000 
+ 440              	.LVL37:
+ 104:src/handleTrap.cpp ****                 break;
+ 441              		.loc 1 104 17 is_stmt 1
+ 104:src/handleTrap.cpp ****                 break;
+ 442              		.loc 1 104 71 is_stmt 0
+ 443              	#APP
+ 444              	# 104 "src/handleTrap.cpp" 1
+ 105:src/handleTrap.cpp ****             case CONSOLE_GETC_CODE:
+ 445              		sd a0, 10*8(fp)
+ 446              	# 0 "" 2
+ 447              		.loc 1 105 17 is_stmt 1
+ 448              	#NO_APP
+ 449 01a4 6FF01FF0 		j	.L3
+ 450              	.LVL38:
+ 451              	.L6:
+ 106:src/handleTrap.cpp ****                 char c1;
+ 452              		.loc 1 106 13
+ 107:src/handleTrap.cpp ****                 c1 = (char) Cons::getcI();
+ 453              		.loc 1 107 17
+ 108:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (c1));
+ 454              		.loc 1 108 17
+ 108:src/handleTrap.cpp ****                 __asm__ volatile("sd %0, 10*8(fp)" : : "r" (c1));
+ 455              		.loc 1 108 40 is_stmt 0
+ 456 01a8 97000000 		call	_ZN4Cons5getcIEv@plt
+ 456      E7800000 
+ 457              	.LVL39:
+ 109:src/handleTrap.cpp ****                 break;
+ 458              		.loc 1 109 17 is_stmt 1
+ 109:src/handleTrap.cpp ****                 break;
+ 459              		.loc 1 109 65 is_stmt 0
+ 460              	#APP
+ 461              	# 109 "src/handleTrap.cpp" 1
+ 110:src/handleTrap.cpp ****             case CONSOLE_PUTC_CODE:
+ 462              		sd a0, 10*8(fp)
+ 463              	# 0 "" 2
+ 464              		.loc 1 110 17 is_stmt 1
+ 465              	#NO_APP
+ 466 01b4 6FF01FEF 		j	.L3
+ 467              	.LVL40:
+ 468              	.L4:
+ 111:src/handleTrap.cpp ****                 char c2;
+ 469              		.loc 1 111 13
+ 112:src/handleTrap.cpp ****                 c2 = (char) a1reg;
+ 470              		.loc 1 112 17
+GAS LISTING /tmp/ccMBLuBU.s 			page 14
+
+
+ 113:src/handleTrap.cpp ****                 Cons::putcO(c2);
+ 471              		.loc 1 113 17
+ 114:src/handleTrap.cpp ****                 break;
+ 472              		.loc 1 114 17
+ 114:src/handleTrap.cpp ****                 break;
+ 473              		.loc 1 114 28 is_stmt 0
+ 474 01b8 1375F50F 		andi	a0,a0,0xff
+ 475              	.LVL41:
+ 476 01bc 97000000 		call	_ZN4Cons5putcOEc@plt
+ 476      E7800000 
+ 477              	.LVL42:
+ 115:src/handleTrap.cpp ****         }
+ 478              		.loc 1 115 17 is_stmt 1
+ 479 01c4 6FF01FEE 		j	.L3
+ 480              	.LBE17:
+ 481              	.LBE22:
+ 482              	.LBE23:
+ 483              	.LBE24:
+ 484              		.cfi_endproc
+ 485              	.LFE33:
+ 487              		.align	2
+ 488              		.globl	timerHandleTrap
+ 490              	timerHandleTrap:
+ 491              	.LFB34:
+ 124:src/handleTrap.cpp **** 
+ 125:src/handleTrap.cpp **** extern "C" void timerHandleTrap() {
+ 492              		.loc 1 125 35
+ 493              		.cfi_startproc
+ 494 01c8 130101FC 		addi	sp,sp,-64
+ 495              		.cfi_def_cfa_offset 64
+ 496 01cc 233C1102 		sd	ra,56(sp)
+ 497 01d0 23388102 		sd	s0,48(sp)
+ 498 01d4 23349102 		sd	s1,40(sp)
+ 499              		.cfi_offset 1, -8
+ 500              		.cfi_offset 8, -16
+ 501              		.cfi_offset 9, -24
+ 502 01d8 13040104 		addi	s0,sp,64
+ 503              		.cfi_def_cfa 8, 0
+ 126:src/handleTrap.cpp ****     uint64 volatile scause;
+ 504              		.loc 1 126 5
+ 127:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, scause" : "=r" (scause));
+ 505              		.loc 1 127 5
+ 506              		.loc 1 127 57 is_stmt 0
+ 507              	#APP
+ 508              	# 127 "src/handleTrap.cpp" 1
+ 128              	
+ 509              		csrr a5, scause
+ 510              	# 0 "" 2
+ 511              	#NO_APP
+ 512 01e0 233CF4FC 		sd	a5,-40(s0)
+ 129:src/handleTrap.cpp ****     uint64 volatile sepc;
+ 513              		.loc 1 129 5 is_stmt 1
+ 130:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, sepc" : "=r" (sepc));
+ 514              		.loc 1 130 5
+ 515              		.loc 1 130 53 is_stmt 0
+ 516              	#APP
+ 517              	# 130 "src/handleTrap.cpp" 1
+GAS LISTING /tmp/ccMBLuBU.s 			page 15
+
+
+ 131              	
+ 518              		csrr a5, sepc
+ 519              	# 0 "" 2
+ 520              	#NO_APP
+ 521 01e8 2338F4FC 		sd	a5,-48(s0)
+ 132:src/handleTrap.cpp ****     uint64 volatile sstatus;
+ 522              		.loc 1 132 5 is_stmt 1
+ 133:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, sstatus" : "=r" (sstatus));
+ 523              		.loc 1 133 5
+ 524              		.loc 1 133 59 is_stmt 0
+ 525              	#APP
+ 526              	# 133 "src/handleTrap.cpp" 1
+ 134              	
+ 527              		csrr a5, sstatus
+ 528              	# 0 "" 2
+ 529              	#NO_APP
+ 530 01f0 2334F4FC 		sd	a5,-56(s0)
+ 135:src/handleTrap.cpp ****     if (scause == 0x8000000000000001UL) {
+ 531              		.loc 1 135 5 is_stmt 1
+ 532              	.LBB25:
+ 533              		.loc 1 135 16 is_stmt 0
+ 534 01f4 033784FD 		ld	a4,-40(s0)
+ 535              		.loc 1 135 5
+ 536 01f8 9307F0FF 		li	a5,-1
+ 537 01fc 9397F703 		slli	a5,a5,63
+ 538 0200 93871700 		addi	a5,a5,1
+ 539 0204 6304F702 		beq	a4,a5,.L26
+ 540              	.L24:
+ 541              	.LBE25:
+ 136:src/handleTrap.cpp ****         int maskSSIP = 1 << 1;
+ 137:src/handleTrap.cpp ****         __asm__ volatile ("csrc sip, %0" : : "r" (maskSSIP));
+ 138:src/handleTrap.cpp ****         TCB::timeSliceCounter++;
+ 139:src/handleTrap.cpp ****         Sleeping::get();
+ 140:src/handleTrap.cpp ****         if(TCB::timeSliceCounter >= TCB::running->getTimeSlice()) {
+ 141:src/handleTrap.cpp ****             TCB::timeSliceCounter = 0;
+ 142:src/handleTrap.cpp ****             TCB::dispatch();
+ 143:src/handleTrap.cpp ****         }
+ 144:src/handleTrap.cpp ****     }
+ 145:src/handleTrap.cpp **** 
+ 146:src/handleTrap.cpp ****     __asm__ volatile ("csrw sepc, %0" : : "r" (sepc));
+ 542              		.loc 1 146 5 is_stmt 1
+ 543              		.loc 1 146 48 is_stmt 0
+ 544 0208 833704FD 		ld	a5,-48(s0)
+ 545              		.loc 1 146 54
+ 546              	#APP
+ 547              	# 146 "src/handleTrap.cpp" 1
+ 147              	    __asm__ volatile ("csrw sstatus, %0" : : "r" (sstatus));
+ 548              		csrw sepc, a5
+ 549              	# 0 "" 2
+ 550              		.loc 1 147 5 is_stmt 1
+ 551              		.loc 1 147 51 is_stmt 0
+ 552              	#NO_APP
+ 553 0210 833784FC 		ld	a5,-56(s0)
+ 554              		.loc 1 147 60
+ 555              	#APP
+ 556              	# 147 "src/handleTrap.cpp" 1
+ 148              	}
+GAS LISTING /tmp/ccMBLuBU.s 			page 16
+
+
+ 557              		csrw sstatus, a5
+ 558              	# 0 "" 2
+ 559              		.loc 1 148 1
+ 560              	#NO_APP
+ 561 0218 83308103 		ld	ra,56(sp)
+ 562              		.cfi_remember_state
+ 563              		.cfi_restore 1
+ 564 021c 03340103 		ld	s0,48(sp)
+ 565              		.cfi_restore 8
+ 566              		.cfi_def_cfa 2, 64
+ 567 0220 83348102 		ld	s1,40(sp)
+ 568              		.cfi_restore 9
+ 569 0224 13010104 		addi	sp,sp,64
+ 570              		.cfi_def_cfa_offset 0
+ 571 0228 67800000 		jr	ra
+ 572              	.L26:
+ 573              		.cfi_restore_state
+ 574              	.LBB29:
+ 575              	.LBB26:
+ 136:src/handleTrap.cpp ****         int maskSSIP = 1 << 1;
+ 576              		.loc 1 136 9 is_stmt 1
+ 577              	.LVL43:
+ 137:src/handleTrap.cpp ****         TCB::timeSliceCounter++;
+ 578              		.loc 1 137 9
+ 137:src/handleTrap.cpp ****         TCB::timeSliceCounter++;
+ 579              		.loc 1 137 61 is_stmt 0
+ 580 022c 93072000 		li	a5,2
+ 581              	#APP
+ 582              	# 137 "src/handleTrap.cpp" 1
+ 138:src/handleTrap.cpp ****         Sleeping::get();
+ 583              		csrc sip, a5
+ 584              	# 0 "" 2
+ 585              		.loc 1 138 9 is_stmt 1
+ 138:src/handleTrap.cpp ****         Sleeping::get();
+ 586              		.loc 1 138 30 is_stmt 0
+ 587              	#NO_APP
+ 588 0234 97040000 		la	s1,_ZN3TCB16timeSliceCounterE
+ 588      83B40400 
+ 589 023c 83B70400 		ld	a5,0(s1)
+ 590 0240 93871700 		addi	a5,a5,1
+ 591 0244 23B0F400 		sd	a5,0(s1)
+ 139:src/handleTrap.cpp ****         if(TCB::timeSliceCounter >= TCB::running->getTimeSlice()) {
+ 592              		.loc 1 139 9 is_stmt 1
+ 139:src/handleTrap.cpp ****         if(TCB::timeSliceCounter >= TCB::running->getTimeSlice()) {
+ 593              		.loc 1 139 22 is_stmt 0
+ 594 0248 97000000 		call	_ZN8Sleeping3getEv@plt
+ 594      E7800000 
+ 595              	.LVL44:
+ 140:src/handleTrap.cpp ****             TCB::timeSliceCounter = 0;
+ 596              		.loc 1 140 9 is_stmt 1
+ 140:src/handleTrap.cpp ****             TCB::timeSliceCounter = 0;
+ 597              		.loc 1 140 63 is_stmt 0
+ 598 0250 97070000 		la	a5,_ZN3TCB7runningE
+ 598      83B70700 
+ 599 0258 83B70700 		ld	a5,0(a5)
+ 600              	.LVL45:
+ 601              	.LBB27:
+GAS LISTING /tmp/ccMBLuBU.s 			page 17
+
+
+ 602              	.LBB28:
+  25:src/../h/../h/TCB.hpp ****     bool isJoined() const { return joined; }
+  26:src/../h/../h/TCB.hpp ****     void setJoined(bool b) { joined = b; }
+  27:src/../h/../h/TCB.hpp ****     bool isBlocked() const { return blocked; }
+  28:src/../h/../h/TCB.hpp ****     void setBlocked(bool b) { blocked = b; }
+  29:src/../h/../h/TCB.hpp ****     bool isSleeping() const { return sleeping; }
+  30:src/../h/../h/TCB.hpp ****     void setSleeping(bool b) { sleeping = b; }
+  31:src/../h/../h/TCB.hpp ****     uint64 getTimeSlice() const { return timeSlice; }
+ 603              		.loc 2 31 35 is_stmt 1
+ 604              		.loc 2 31 42 is_stmt 0
+ 605 025c 83B70703 		ld	a5,48(a5)
+ 606              	.LVL46:
+ 607              	.LBE28:
+ 608              	.LBE27:
+ 140:src/handleTrap.cpp ****             TCB::timeSliceCounter = 0;
+ 609              		.loc 1 140 34
+ 610 0260 03B70400 		ld	a4,0(s1)
+ 140:src/handleTrap.cpp ****             TCB::timeSliceCounter = 0;
+ 611              		.loc 1 140 9
+ 612 0264 E362F7FA 		bltu	a4,a5,.L24
+ 141:src/handleTrap.cpp ****             TCB::dispatch();
+ 613              		.loc 1 141 13 is_stmt 1
+ 141:src/handleTrap.cpp ****             TCB::dispatch();
+ 614              		.loc 1 141 35 is_stmt 0
+ 615 0268 23B00400 		sd	zero,0(s1)
+ 142:src/handleTrap.cpp ****         }
+ 616              		.loc 1 142 13 is_stmt 1
+ 142:src/handleTrap.cpp ****         }
+ 617              		.loc 1 142 26 is_stmt 0
+ 618 026c 97000000 		call	_ZN3TCB8dispatchEv@plt
+ 618      E7800000 
+ 619              	.LVL47:
+ 620 0274 6FF05FF9 		j	.L24
+ 621              	.LBE26:
+ 622              	.LBE29:
+ 623              		.cfi_endproc
+ 624              	.LFE34:
+ 626              		.align	2
+ 627              		.globl	consoleHandleTrap
+ 629              	consoleHandleTrap:
+ 630              	.LFB35:
+ 149:src/handleTrap.cpp **** 
+ 150:src/handleTrap.cpp **** extern "C" void consoleHandleTrap() {
+ 631              		.loc 1 150 37 is_stmt 1
+ 632              		.cfi_startproc
+ 633 0278 130101FC 		addi	sp,sp,-64
+ 634              		.cfi_def_cfa_offset 64
+ 635 027c 233C1102 		sd	ra,56(sp)
+ 636 0280 23388102 		sd	s0,48(sp)
+ 637 0284 23349102 		sd	s1,40(sp)
+ 638              		.cfi_offset 1, -8
+ 639              		.cfi_offset 8, -16
+ 640              		.cfi_offset 9, -24
+ 641 0288 13040104 		addi	s0,sp,64
+ 642              		.cfi_def_cfa 8, 0
+ 151:src/handleTrap.cpp ****     uint64 volatile scause;
+ 643              		.loc 1 151 5
+GAS LISTING /tmp/ccMBLuBU.s 			page 18
+
+
+ 152:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, scause" : "=r" (scause));
+ 644              		.loc 1 152 5
+ 645              		.loc 1 152 57 is_stmt 0
+ 646              	#APP
+ 647              	# 152 "src/handleTrap.cpp" 1
+ 153              	
+ 648              		csrr a5, scause
+ 649              	# 0 "" 2
+ 650              	#NO_APP
+ 651 0290 233CF4FC 		sd	a5,-40(s0)
+ 154:src/handleTrap.cpp ****     uint64 volatile sepc;
+ 652              		.loc 1 154 5 is_stmt 1
+ 155:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, sepc" : "=r" (sepc));
+ 653              		.loc 1 155 5
+ 654              		.loc 1 155 53 is_stmt 0
+ 655              	#APP
+ 656              	# 155 "src/handleTrap.cpp" 1
+ 156              	
+ 657              		csrr a5, sepc
+ 658              	# 0 "" 2
+ 659              	#NO_APP
+ 660 0298 2338F4FC 		sd	a5,-48(s0)
+ 157:src/handleTrap.cpp ****     uint64 volatile sstatus;
+ 661              		.loc 1 157 5 is_stmt 1
+ 158:src/handleTrap.cpp ****     __asm__ volatile ("csrr %0, sstatus" : "=r" (sstatus));
+ 662              		.loc 1 158 5
+ 663              		.loc 1 158 59 is_stmt 0
+ 664              	#APP
+ 665              	# 158 "src/handleTrap.cpp" 1
+ 159              	
+ 666              		csrr a5, sstatus
+ 667              	# 0 "" 2
+ 668              	#NO_APP
+ 669 02a0 2334F4FC 		sd	a5,-56(s0)
+ 160:src/handleTrap.cpp ****     if (scause == 0x8000000000000009UL) {
+ 670              		.loc 1 160 5 is_stmt 1
+ 671              	.LBB30:
+ 672              		.loc 1 160 16 is_stmt 0
+ 673 02a4 033784FD 		ld	a4,-40(s0)
+ 674              		.loc 1 160 5
+ 675 02a8 9307F0FF 		li	a5,-1
+ 676 02ac 9397F703 		slli	a5,a5,63
+ 677 02b0 93879700 		addi	a5,a5,9
+ 678 02b4 6304F702 		beq	a4,a5,.L32
+ 679              	.L28:
+ 680              	.LBE30:
+ 161:src/handleTrap.cpp ****         int interupt = plic_claim();
+ 162:src/handleTrap.cpp ****         while(CONSOLE_RX_STATUS_BIT & *((char*)(CONSOLE_STATUS))) {
+ 163:src/handleTrap.cpp ****             char c = (*(char*) CONSOLE_RX_DATA);
+ 164:src/handleTrap.cpp ****             Cons::putcI(c);
+ 165:src/handleTrap.cpp ****         }
+ 166:src/handleTrap.cpp ****         plic_complete(interupt);
+ 167:src/handleTrap.cpp ****     }
+ 168:src/handleTrap.cpp **** 
+ 169:src/handleTrap.cpp ****     __asm__ volatile ("csrw sepc, %0" : : "r" (sepc));
+ 681              		.loc 1 169 5 is_stmt 1
+ 682              		.loc 1 169 48 is_stmt 0
+GAS LISTING /tmp/ccMBLuBU.s 			page 19
+
+
+ 683 02b8 833704FD 		ld	a5,-48(s0)
+ 684              		.loc 1 169 54
+ 685              	#APP
+ 686              	# 169 "src/handleTrap.cpp" 1
+ 170              	    __asm__ volatile ("csrw sstatus, %0" : : "r" (sstatus));
+ 687              		csrw sepc, a5
+ 688              	# 0 "" 2
+ 689              		.loc 1 170 5 is_stmt 1
+ 690              		.loc 1 170 51 is_stmt 0
+ 691              	#NO_APP
+ 692 02c0 833784FC 		ld	a5,-56(s0)
+ 693              		.loc 1 170 60
+ 694              	#APP
+ 695              	# 170 "src/handleTrap.cpp" 1
+ 171              	}
+ 696              		csrw sstatus, a5
+ 697              	# 0 "" 2
+ 698              		.loc 1 171 1
+ 699              	#NO_APP
+ 700 02c8 83308103 		ld	ra,56(sp)
+ 701              		.cfi_remember_state
+ 702              		.cfi_restore 1
+ 703 02cc 03340103 		ld	s0,48(sp)
+ 704              		.cfi_restore 8
+ 705              		.cfi_def_cfa 2, 64
+ 706 02d0 83348102 		ld	s1,40(sp)
+ 707              		.cfi_restore 9
+ 708 02d4 13010104 		addi	sp,sp,64
+ 709              		.cfi_def_cfa_offset 0
+ 710 02d8 67800000 		jr	ra
+ 711              	.L32:
+ 712              		.cfi_restore_state
+ 713              	.LBB33:
+ 714              	.LBB31:
+ 161:src/handleTrap.cpp ****         int interupt = plic_claim();
+ 715              		.loc 1 161 9 is_stmt 1
+ 161:src/handleTrap.cpp ****         int interupt = plic_claim();
+ 716              		.loc 1 161 34 is_stmt 0
+ 717 02dc 97000000 		call	plic_claim@plt
+ 717      E7800000 
+ 718              	.LVL48:
+ 719 02e4 93040500 		mv	s1,a0
+ 720              	.LVL49:
+ 721              	.L30:
+ 162:src/handleTrap.cpp ****             char c = (*(char*) CONSOLE_RX_DATA);
+ 722              		.loc 1 162 9 is_stmt 1
+ 162:src/handleTrap.cpp ****             char c = (*(char*) CONSOLE_RX_DATA);
+ 723              		.loc 1 162 64
+ 162:src/handleTrap.cpp ****             char c = (*(char*) CONSOLE_RX_DATA);
+ 724              		.loc 1 162 39 is_stmt 0
+ 725 02e8 97070000 		la	a5,CONSOLE_STATUS
+ 725      83B70700 
+ 726 02f0 83B70700 		ld	a5,0(a5)
+ 727 02f4 83C70700 		lbu	a5,0(a5)
+ 162:src/handleTrap.cpp ****             char c = (*(char*) CONSOLE_RX_DATA);
+ 728              		.loc 1 162 64
+ 729 02f8 93F71700 		andi	a5,a5,1
+GAS LISTING /tmp/ccMBLuBU.s 			page 20
+
+
+ 730 02fc 63800702 		beqz	a5,.L29
+ 731              	.LBB32:
+ 163:src/handleTrap.cpp ****             Cons::putcI(c);
+ 732              		.loc 1 163 13 is_stmt 1
+ 163:src/handleTrap.cpp ****             Cons::putcI(c);
+ 733              		.loc 1 163 23 is_stmt 0
+ 734 0300 97070000 		la	a5,CONSOLE_RX_DATA
+ 734      83B70700 
+ 735 0308 83B70700 		ld	a5,0(a5)
+ 736              	.LVL50:
+ 164:src/handleTrap.cpp ****         }
+ 737              		.loc 1 164 13 is_stmt 1
+ 164:src/handleTrap.cpp ****         }
+ 738              		.loc 1 164 24 is_stmt 0
+ 739 030c 03C50700 		lbu	a0,0(a5)
+ 740 0310 97000000 		call	_ZN4Cons5putcIEc@plt
+ 740      E7800000 
+ 741              	.LVL51:
+ 742              	.LBE32:
+ 162:src/handleTrap.cpp ****             char c = (*(char*) CONSOLE_RX_DATA);
+ 743              		.loc 1 162 9
+ 744 0318 6FF01FFD 		j	.L30
+ 745              	.L29:
+ 166:src/handleTrap.cpp ****     }
+ 746              		.loc 1 166 9 is_stmt 1
+ 166:src/handleTrap.cpp ****     }
+ 747              		.loc 1 166 22 is_stmt 0
+ 748 031c 13850400 		mv	a0,s1
+ 749 0320 97000000 		call	plic_complete@plt
+ 749      E7800000 
+ 750              	.LVL52:
+ 751              	.LBE31:
+ 752 0328 6FF01FF9 		j	.L28
+ 753              	.LBE33:
+ 754              		.cfi_endproc
+ 755              	.LFE35:
+ 757              	.Letext0:
+ 758              		.file 3 "src/../h/../lib/hw.h"
+ 759              		.file 4 "src/../h/../h/MemoryAllocator.hpp"
+ 760              		.file 5 "src/../h/../h/../h/Sleeping.hpp"
+ 761              		.file 6 "src/../h/../h/Blocked.hpp"
+ 762              		.file 7 "src/../h/../h/Sem.hpp"
+ 763              		.file 8 "src/../h/../h/Cons.hpp"
+ 764              		.file 9 "src/../h/syscall_c.hpp"
+ 765              		.file 10 "src/../test/printing.hpp"
+GAS LISTING /tmp/ccMBLuBU.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 handleTrap.cpp
+     /tmp/ccMBLuBU.s:9      .text:0000000000000000 ecallHandleTrap
+     /tmp/ccMBLuBU.s:13     .text:0000000000000000 .L0 
+     /tmp/ccMBLuBU.s:14     .text:0000000000000000 .L0 
+     /tmp/ccMBLuBU.s:15     .text:0000000000000004 .L0 
+     /tmp/ccMBLuBU.s:18     .text:000000000000000c .L0 
+     /tmp/ccMBLuBU.s:19     .text:000000000000000c .L0 
+     /tmp/ccMBLuBU.s:21     .text:0000000000000010 .L0 
+     /tmp/ccMBLuBU.s:23     .text:0000000000000010 .L0 
+     /tmp/ccMBLuBU.s:24     .text:0000000000000010 .L0 
+  src/handleTrap.cpp:8      .text:0000000000000010 .L0 
+     /tmp/ccMBLuBU.s:31     .text:0000000000000014 .L0 
+  src/handleTrap.cpp:9      .text:0000000000000014 .L0 
+     /tmp/ccMBLuBU.s:37     .text:0000000000000018 .L0 
+  src/handleTrap.cpp:10     .text:0000000000000018 .L0 
+     /tmp/ccMBLuBU.s:43     .text:000000000000001c .L0 
+  src/handleTrap.cpp:11     .text:000000000000001c .L0 
+     /tmp/ccMBLuBU.s:49     .text:0000000000000020 .L0 
+  src/handleTrap.cpp:12     .text:0000000000000020 .L0 
+     /tmp/ccMBLuBU.s:55     .text:0000000000000024 .L0 
+     /tmp/ccMBLuBU.s:56     .text:0000000000000024 .L0 
+  src/handleTrap.cpp:15     .text:0000000000000024 .L0 
+     /tmp/ccMBLuBU.s:63     .text:000000000000002c .L0 
+     /tmp/ccMBLuBU.s:64     .text:000000000000002c .L0 
+  src/handleTrap.cpp:18     .text:000000000000002c .L0 
+     /tmp/ccMBLuBU.s:72     .text:0000000000000034 .L0 
+     /tmp/ccMBLuBU.s:73     .text:0000000000000034 .L0 
+  src/handleTrap.cpp:21     .text:0000000000000034 .L0 
+     /tmp/ccMBLuBU.s:82     .text:000000000000003c .L0 
+     /tmp/ccMBLuBU.s:83     .text:000000000000003c .L0 
+     /tmp/ccMBLuBU.s:85     .text:0000000000000040 .L0 
+     /tmp/ccMBLuBU.s:88     .text:0000000000000048 .L0 
+     /tmp/ccMBLuBU.s:90     .text:000000000000004c .L0 
+     /tmp/ccMBLuBU.s:95     .text:0000000000000054 .L0 
+     /tmp/ccMBLuBU.s:96     .text:0000000000000054 .L0 
+     /tmp/ccMBLuBU.s:100    .text:0000000000000060 .L0 
+     /tmp/ccMBLuBU.s:101    .text:0000000000000060 .L0 
+     /tmp/ccMBLuBU.s:104    .text:0000000000000064 .L0 
+     /tmp/ccMBLuBU.s:105    .text:0000000000000064 .L0 
+     /tmp/ccMBLuBU.s:190    .text:000000000000008c .L0 
+     /tmp/ccMBLuBU.s:191    .text:000000000000008c .L0 
+     /tmp/ccMBLuBU.s:203    .text:00000000000000a4 .L0 
+     /tmp/ccMBLuBU.s:204    .text:00000000000000a4 .L0 
+  src/handleTrap.cpp:121    .text:00000000000000a8 .L0 
+     /tmp/ccMBLuBU.s:211    .text:00000000000000ac .L0 
+     /tmp/ccMBLuBU.s:213    .text:00000000000000ac .L0 
+  src/handleTrap.cpp:122    .text:00000000000000b0 .L0 
+     /tmp/ccMBLuBU.s:221    .text:00000000000000b4 .L0 
+     /tmp/ccMBLuBU.s:222    .text:00000000000000b8 .L0 
+     /tmp/ccMBLuBU.s:223    .text:00000000000000b8 .L0 
+     /tmp/ccMBLuBU.s:225    .text:00000000000000bc .L0 
+     /tmp/ccMBLuBU.s:226    .text:00000000000000bc .L0 
+     /tmp/ccMBLuBU.s:228    .text:00000000000000c0 .L0 
+     /tmp/ccMBLuBU.s:232    .text:00000000000000c4 .L0 
+     /tmp/ccMBLuBU.s:238    .text:00000000000000c4 .L0 
+     /tmp/ccMBLuBU.s:239    .text:00000000000000c4 .L0 
+GAS LISTING /tmp/ccMBLuBU.s 			page 22
+
+
+     /tmp/ccMBLuBU.s:240    .text:00000000000000c4 .L0 
+     /tmp/ccMBLuBU.s:241    .text:00000000000000c4 .L0 
+     /tmp/ccMBLuBU.s:242    .text:00000000000000c4 .L0 
+     /tmp/ccMBLuBU.s:243    .text:00000000000000c4 .L0 
+     /tmp/ccMBLuBU.s:246    .text:00000000000000cc .L0 
+  src/handleTrap.cpp:33     .text:00000000000000cc .L0 
+     /tmp/ccMBLuBU.s:253    .text:00000000000000d0 .L0 
+     /tmp/ccMBLuBU.s:257    .text:00000000000000d4 .L0 
+     /tmp/ccMBLuBU.s:258    .text:00000000000000d4 .L0 
+     /tmp/ccMBLuBU.s:259    .text:00000000000000d4 .L0 
+     /tmp/ccMBLuBU.s:260    .text:00000000000000d4 .L0 
+     /tmp/ccMBLuBU.s:261    .text:00000000000000d4 .L0 
+     /tmp/ccMBLuBU.s:262    .text:00000000000000d4 .L0 
+     /tmp/ccMBLuBU.s:265    .text:00000000000000dc .L0 
+  src/handleTrap.cpp:40     .text:00000000000000dc .L0 
+     /tmp/ccMBLuBU.s:272    .text:00000000000000e0 .L0 
+     /tmp/ccMBLuBU.s:276    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:277    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:278    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:279    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:280    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:281    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:282    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:283    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:284    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:285    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:286    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:287    .text:00000000000000e4 .L0 
+     /tmp/ccMBLuBU.s:290    .text:00000000000000ec .L0 
+  src/handleTrap.cpp:54     .text:00000000000000ec .L0 
+     /tmp/ccMBLuBU.s:297    .text:00000000000000f0 .L0 
+     /tmp/ccMBLuBU.s:301    .text:00000000000000f4 .L0 
+     /tmp/ccMBLuBU.s:302    .text:00000000000000f4 .L0 
+     /tmp/ccMBLuBU.s:303    .text:00000000000000f4 .L0 
+     /tmp/ccMBLuBU.s:304    .text:00000000000000f4 .L0 
+     /tmp/ccMBLuBU.s:311    .text:0000000000000100 .L0 
+     /tmp/ccMBLuBU.s:312    .text:0000000000000100 .L0 
+     /tmp/ccMBLuBU.s:317    .text:0000000000000104 .L0 
+     /tmp/ccMBLuBU.s:319    .text:0000000000000108 .L0 
+     /tmp/ccMBLuBU.s:323    .text:000000000000010c .L0 
+  src/handleTrap.cpp:65     .text:000000000000010c .L0 
+     /tmp/ccMBLuBU.s:330    .text:0000000000000110 .L0 
+     /tmp/ccMBLuBU.s:336    .text:0000000000000114 .L0 
+     /tmp/ccMBLuBU.s:337    .text:0000000000000114 .L0 
+     /tmp/ccMBLuBU.s:338    .text:0000000000000114 .L0 
+     /tmp/ccMBLuBU.s:344    .text:000000000000011c .L0 
+     /tmp/ccMBLuBU.s:345    .text:000000000000011c .L0 
+     /tmp/ccMBLuBU.s:348    .text:0000000000000124 .L0 
+     /tmp/ccMBLuBU.s:349    .text:0000000000000124 .L0 
+     /tmp/ccMBLuBU.s:352    .text:000000000000012c .L0 
+     /tmp/ccMBLuBU.s:353    .text:000000000000012c .L0 
+     /tmp/ccMBLuBU.s:358    .text:0000000000000134 .L0 
+     /tmp/ccMBLuBU.s:359    .text:0000000000000134 .L0 
+     /tmp/ccMBLuBU.s:360    .text:0000000000000134 .L0 
+     /tmp/ccMBLuBU.s:363    .text:0000000000000140 .L0 
+     /tmp/ccMBLuBU.s:364    .text:0000000000000140 .L0 
+     /tmp/ccMBLuBU.s:367    .text:0000000000000148 .L0 
+GAS LISTING /tmp/ccMBLuBU.s 			page 23
+
+
+     /tmp/ccMBLuBU.s:371    .text:000000000000014c .L0 
+     /tmp/ccMBLuBU.s:372    .text:000000000000014c .L0 
+     /tmp/ccMBLuBU.s:373    .text:000000000000014c .L0 
+     /tmp/ccMBLuBU.s:374    .text:000000000000014c .L0 
+     /tmp/ccMBLuBU.s:375    .text:000000000000014c .L0 
+     /tmp/ccMBLuBU.s:378    .text:0000000000000154 .L0 
+     /tmp/ccMBLuBU.s:382    .text:0000000000000158 .L0 
+     /tmp/ccMBLuBU.s:383    .text:0000000000000158 .L0 
+     /tmp/ccMBLuBU.s:384    .text:0000000000000158 .L0 
+     /tmp/ccMBLuBU.s:385    .text:0000000000000158 .L0 
+     /tmp/ccMBLuBU.s:386    .text:0000000000000158 .L0 
+     /tmp/ccMBLuBU.s:387    .text:0000000000000158 .L0 
+     /tmp/ccMBLuBU.s:388    .text:0000000000000158 .L0 
+     /tmp/ccMBLuBU.s:393    .text:0000000000000164 .L0 
+     /tmp/ccMBLuBU.s:397    .text:0000000000000168 .L0 
+     /tmp/ccMBLuBU.s:398    .text:0000000000000168 .L0 
+     /tmp/ccMBLuBU.s:399    .text:0000000000000168 .L0 
+     /tmp/ccMBLuBU.s:400    .text:0000000000000168 .L0 
+     /tmp/ccMBLuBU.s:401    .text:0000000000000168 .L0 
+     /tmp/ccMBLuBU.s:404    .text:0000000000000170 .L0 
+     /tmp/ccMBLuBU.s:408    .text:0000000000000174 .L0 
+     /tmp/ccMBLuBU.s:409    .text:0000000000000174 .L0 
+     /tmp/ccMBLuBU.s:410    .text:0000000000000174 .L0 
+     /tmp/ccMBLuBU.s:411    .text:0000000000000174 .L0 
+     /tmp/ccMBLuBU.s:412    .text:0000000000000174 .L0 
+     /tmp/ccMBLuBU.s:415    .text:000000000000017c .L0 
+     /tmp/ccMBLuBU.s:419    .text:0000000000000180 .L0 
+     /tmp/ccMBLuBU.s:420    .text:0000000000000180 .L0 
+     /tmp/ccMBLuBU.s:421    .text:0000000000000180 .L0 
+     /tmp/ccMBLuBU.s:422    .text:0000000000000180 .L0 
+     /tmp/ccMBLuBU.s:423    .text:0000000000000180 .L0 
+     /tmp/ccMBLuBU.s:426    .text:0000000000000188 .L0 
+     /tmp/ccMBLuBU.s:430    .text:000000000000018c .L0 
+     /tmp/ccMBLuBU.s:431    .text:000000000000018c .L0 
+     /tmp/ccMBLuBU.s:432    .text:000000000000018c .L0 
+     /tmp/ccMBLuBU.s:433    .text:000000000000018c .L0 
+     /tmp/ccMBLuBU.s:434    .text:000000000000018c .L0 
+     /tmp/ccMBLuBU.s:435    .text:000000000000018c .L0 
+     /tmp/ccMBLuBU.s:438    .text:0000000000000198 .L0 
+     /tmp/ccMBLuBU.s:439    .text:0000000000000198 .L0 
+     /tmp/ccMBLuBU.s:442    .text:00000000000001a0 .L0 
+  src/handleTrap.cpp:104    .text:00000000000001a0 .L0 
+     /tmp/ccMBLuBU.s:449    .text:00000000000001a4 .L0 
+     /tmp/ccMBLuBU.s:453    .text:00000000000001a8 .L0 
+     /tmp/ccMBLuBU.s:454    .text:00000000000001a8 .L0 
+     /tmp/ccMBLuBU.s:455    .text:00000000000001a8 .L0 
+     /tmp/ccMBLuBU.s:456    .text:00000000000001a8 .L0 
+     /tmp/ccMBLuBU.s:459    .text:00000000000001b0 .L0 
+  src/handleTrap.cpp:109    .text:00000000000001b0 .L0 
+     /tmp/ccMBLuBU.s:466    .text:00000000000001b4 .L0 
+     /tmp/ccMBLuBU.s:470    .text:00000000000001b8 .L0 
+     /tmp/ccMBLuBU.s:471    .text:00000000000001b8 .L0 
+     /tmp/ccMBLuBU.s:472    .text:00000000000001b8 .L0 
+     /tmp/ccMBLuBU.s:473    .text:00000000000001b8 .L0 
+     /tmp/ccMBLuBU.s:474    .text:00000000000001b8 .L0 
+     /tmp/ccMBLuBU.s:479    .text:00000000000001c4 .L0 
+     /tmp/ccMBLuBU.s:484    .text:00000000000001c8 .L0 
+GAS LISTING /tmp/ccMBLuBU.s 			page 24
+
+
+     /tmp/ccMBLuBU.s:490    .text:00000000000001c8 timerHandleTrap
+     /tmp/ccMBLuBU.s:493    .text:00000000000001c8 .L0 
+     /tmp/ccMBLuBU.s:494    .text:00000000000001c8 .L0 
+     /tmp/ccMBLuBU.s:495    .text:00000000000001cc .L0 
+     /tmp/ccMBLuBU.s:499    .text:00000000000001d8 .L0 
+     /tmp/ccMBLuBU.s:500    .text:00000000000001d8 .L0 
+     /tmp/ccMBLuBU.s:501    .text:00000000000001d8 .L0 
+     /tmp/ccMBLuBU.s:503    .text:00000000000001dc .L0 
+     /tmp/ccMBLuBU.s:505    .text:00000000000001dc .L0 
+     /tmp/ccMBLuBU.s:506    .text:00000000000001dc .L0 
+  src/handleTrap.cpp:127    .text:00000000000001dc .L0 
+     /tmp/ccMBLuBU.s:514    .text:00000000000001e4 .L0 
+     /tmp/ccMBLuBU.s:515    .text:00000000000001e4 .L0 
+  src/handleTrap.cpp:130    .text:00000000000001e4 .L0 
+     /tmp/ccMBLuBU.s:523    .text:00000000000001ec .L0 
+     /tmp/ccMBLuBU.s:524    .text:00000000000001ec .L0 
+  src/handleTrap.cpp:133    .text:00000000000001ec .L0 
+     /tmp/ccMBLuBU.s:533    .text:00000000000001f4 .L0 
+     /tmp/ccMBLuBU.s:534    .text:00000000000001f4 .L0 
+     /tmp/ccMBLuBU.s:536    .text:00000000000001f8 .L0 
+     /tmp/ccMBLuBU.s:543    .text:0000000000000208 .L0 
+     /tmp/ccMBLuBU.s:544    .text:0000000000000208 .L0 
+  src/handleTrap.cpp:146    .text:000000000000020c .L0 
+     /tmp/ccMBLuBU.s:551    .text:0000000000000210 .L0 
+     /tmp/ccMBLuBU.s:553    .text:0000000000000210 .L0 
+  src/handleTrap.cpp:147    .text:0000000000000214 .L0 
+     /tmp/ccMBLuBU.s:561    .text:0000000000000218 .L0 
+     /tmp/ccMBLuBU.s:562    .text:000000000000021c .L0 
+     /tmp/ccMBLuBU.s:563    .text:000000000000021c .L0 
+     /tmp/ccMBLuBU.s:565    .text:0000000000000220 .L0 
+     /tmp/ccMBLuBU.s:566    .text:0000000000000220 .L0 
+     /tmp/ccMBLuBU.s:568    .text:0000000000000224 .L0 
+     /tmp/ccMBLuBU.s:570    .text:0000000000000228 .L0 
+     /tmp/ccMBLuBU.s:573    .text:000000000000022c .L0 
+     /tmp/ccMBLuBU.s:578    .text:000000000000022c .L0 
+     /tmp/ccMBLuBU.s:579    .text:000000000000022c .L0 
+     /tmp/ccMBLuBU.s:580    .text:000000000000022c .L0 
+     /tmp/ccMBLuBU.s:586    .text:0000000000000234 .L0 
+     /tmp/ccMBLuBU.s:588    .text:0000000000000234 .L0 
+     /tmp/ccMBLuBU.s:593    .text:0000000000000248 .L0 
+     /tmp/ccMBLuBU.s:594    .text:0000000000000248 .L0 
+     /tmp/ccMBLuBU.s:597    .text:0000000000000250 .L0 
+     /tmp/ccMBLuBU.s:598    .text:0000000000000250 .L0 
+     /tmp/ccMBLuBU.s:604    .text:000000000000025c .L0 
+     /tmp/ccMBLuBU.s:605    .text:000000000000025c .L0 
+     /tmp/ccMBLuBU.s:610    .text:0000000000000260 .L0 
+     /tmp/ccMBLuBU.s:612    .text:0000000000000264 .L0 
+     /tmp/ccMBLuBU.s:614    .text:0000000000000268 .L0 
+     /tmp/ccMBLuBU.s:615    .text:0000000000000268 .L0 
+     /tmp/ccMBLuBU.s:617    .text:000000000000026c .L0 
+     /tmp/ccMBLuBU.s:618    .text:000000000000026c .L0 
+     /tmp/ccMBLuBU.s:623    .text:0000000000000278 .L0 
+     /tmp/ccMBLuBU.s:629    .text:0000000000000278 consoleHandleTrap
+     /tmp/ccMBLuBU.s:632    .text:0000000000000278 .L0 
+     /tmp/ccMBLuBU.s:633    .text:0000000000000278 .L0 
+     /tmp/ccMBLuBU.s:634    .text:000000000000027c .L0 
+     /tmp/ccMBLuBU.s:638    .text:0000000000000288 .L0 
+GAS LISTING /tmp/ccMBLuBU.s 			page 25
+
+
+     /tmp/ccMBLuBU.s:639    .text:0000000000000288 .L0 
+     /tmp/ccMBLuBU.s:640    .text:0000000000000288 .L0 
+     /tmp/ccMBLuBU.s:642    .text:000000000000028c .L0 
+     /tmp/ccMBLuBU.s:644    .text:000000000000028c .L0 
+     /tmp/ccMBLuBU.s:645    .text:000000000000028c .L0 
+  src/handleTrap.cpp:152    .text:000000000000028c .L0 
+     /tmp/ccMBLuBU.s:653    .text:0000000000000294 .L0 
+     /tmp/ccMBLuBU.s:654    .text:0000000000000294 .L0 
+  src/handleTrap.cpp:155    .text:0000000000000294 .L0 
+     /tmp/ccMBLuBU.s:662    .text:000000000000029c .L0 
+     /tmp/ccMBLuBU.s:663    .text:000000000000029c .L0 
+  src/handleTrap.cpp:158    .text:000000000000029c .L0 
+     /tmp/ccMBLuBU.s:672    .text:00000000000002a4 .L0 
+     /tmp/ccMBLuBU.s:673    .text:00000000000002a4 .L0 
+     /tmp/ccMBLuBU.s:675    .text:00000000000002a8 .L0 
+     /tmp/ccMBLuBU.s:682    .text:00000000000002b8 .L0 
+     /tmp/ccMBLuBU.s:683    .text:00000000000002b8 .L0 
+  src/handleTrap.cpp:169    .text:00000000000002bc .L0 
+     /tmp/ccMBLuBU.s:690    .text:00000000000002c0 .L0 
+     /tmp/ccMBLuBU.s:692    .text:00000000000002c0 .L0 
+  src/handleTrap.cpp:170    .text:00000000000002c4 .L0 
+     /tmp/ccMBLuBU.s:700    .text:00000000000002c8 .L0 
+     /tmp/ccMBLuBU.s:701    .text:00000000000002cc .L0 
+     /tmp/ccMBLuBU.s:702    .text:00000000000002cc .L0 
+     /tmp/ccMBLuBU.s:704    .text:00000000000002d0 .L0 
+     /tmp/ccMBLuBU.s:705    .text:00000000000002d0 .L0 
+     /tmp/ccMBLuBU.s:707    .text:00000000000002d4 .L0 
+     /tmp/ccMBLuBU.s:709    .text:00000000000002d8 .L0 
+     /tmp/ccMBLuBU.s:712    .text:00000000000002dc .L0 
+     /tmp/ccMBLuBU.s:716    .text:00000000000002dc .L0 
+     /tmp/ccMBLuBU.s:717    .text:00000000000002dc .L0 
+     /tmp/ccMBLuBU.s:723    .text:00000000000002e8 .L0 
+     /tmp/ccMBLuBU.s:724    .text:00000000000002e8 .L0 
+     /tmp/ccMBLuBU.s:725    .text:00000000000002e8 .L0 
+     /tmp/ccMBLuBU.s:729    .text:00000000000002f8 .L0 
+     /tmp/ccMBLuBU.s:733    .text:0000000000000300 .L0 
+     /tmp/ccMBLuBU.s:734    .text:0000000000000300 .L0 
+     /tmp/ccMBLuBU.s:738    .text:000000000000030c .L0 
+     /tmp/ccMBLuBU.s:739    .text:000000000000030c .L0 
+     /tmp/ccMBLuBU.s:744    .text:0000000000000318 .L0 
+     /tmp/ccMBLuBU.s:747    .text:000000000000031c .L0 
+     /tmp/ccMBLuBU.s:748    .text:000000000000031c .L0 
+     /tmp/ccMBLuBU.s:754    .text:000000000000032c .L0 
+     /tmp/ccMBLuBU.s:766    .text:000000000000032c .L0 
+     /tmp/ccMBLuBU.s:117    .rodata:0000000000000000 .L5
+     /tmp/ccMBLuBU.s:109    .text:0000000000000074 .L0 
+     /tmp/ccMBLuBU.s:304    .text:00000000000000f4 .L0 
+     /tmp/ccMBLuBU.s:360    .text:0000000000000134 .L0 
+     /tmp/ccMBLuBU.s:435    .text:000000000000018c .L0 
+     /tmp/ccMBLuBU.s:588    .text:0000000000000234 .L0 
+     /tmp/ccMBLuBU.s:598    .text:0000000000000250 .L0 
+     /tmp/ccMBLuBU.s:725    .text:00000000000002e8 .L0 
+     /tmp/ccMBLuBU.s:734    .text:0000000000000300 .L0 
+     /tmp/ccMBLuBU.s:92     .text:0000000000000054 .L2
+     /tmp/ccMBLuBU.s:186    .text:000000000000008c .L21
+     /tmp/ccMBLuBU.s:200    .text:00000000000000a4 .L3
+     /tmp/ccMBLuBU.s:332    .text:0000000000000114 .L22
+GAS LISTING /tmp/ccMBLuBU.s 			page 26
+
+
+     /tmp/ccMBLuBU.s:321    .text:000000000000010c .L18
+     /tmp/ccMBLuBU.s:572    .text:000000000000022c .L26
+     /tmp/ccMBLuBU.s:540    .text:0000000000000208 .L24
+     /tmp/ccMBLuBU.s:711    .text:00000000000002dc .L32
+     /tmp/ccMBLuBU.s:745    .text:000000000000031c .L29
+     /tmp/ccMBLuBU.s:721    .text:00000000000002e8 .L30
+     /tmp/ccMBLuBU.s:679    .text:00000000000002b8 .L28
+     /tmp/ccMBLuBU.s:231    .text:00000000000000c4 .L17
+     /tmp/ccMBLuBU.s:255    .text:00000000000000d4 .L16
+     /tmp/ccMBLuBU.s:274    .text:00000000000000e4 .L15
+     /tmp/ccMBLuBU.s:299    .text:00000000000000f4 .L14
+     /tmp/ccMBLuBU.s:356    .text:0000000000000134 .L13
+     /tmp/ccMBLuBU.s:369    .text:000000000000014c .L12
+     /tmp/ccMBLuBU.s:380    .text:0000000000000158 .L11
+     /tmp/ccMBLuBU.s:395    .text:0000000000000168 .L10
+     /tmp/ccMBLuBU.s:406    .text:0000000000000174 .L9
+     /tmp/ccMBLuBU.s:417    .text:0000000000000180 .L8
+     /tmp/ccMBLuBU.s:428    .text:000000000000018c .L7
+     /tmp/ccMBLuBU.s:451    .text:00000000000001a8 .L6
+     /tmp/ccMBLuBU.s:468    .text:00000000000001b8 .L4
+     /tmp/ccMBLuBU.s:2508   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccMBLuBU.s:4548   .debug_str:000000000000085f .LASF182
+     /tmp/ccMBLuBU.s:4320   .debug_str:000000000000021e .LASF183
+     /tmp/ccMBLuBU.s:4336   .debug_str:000000000000029b .LASF184
+     /tmp/ccMBLuBU.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccMBLuBU.s:757    .text:000000000000032c .Letext0
+     /tmp/ccMBLuBU.s:4228   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccMBLuBU.s:4352   .debug_str:0000000000000303 .LASF0
+     /tmp/ccMBLuBU.s:4378   .debug_str:00000000000003ba .LASF1
+     /tmp/ccMBLuBU.s:4478   .debug_str:0000000000000692 .LASF2
+     /tmp/ccMBLuBU.s:4488   .debug_str:00000000000006e2 .LASF4
+     /tmp/ccMBLuBU.s:4358   .debug_str:0000000000000320 .LASF3
+     /tmp/ccMBLuBU.s:4240   .debug_str:0000000000000032 .LASF5
+     /tmp/ccMBLuBU.s:4456   .debug_str:00000000000005ec .LASF6
+     /tmp/ccMBLuBU.s:4442   .debug_str:000000000000058f .LASF7
+     /tmp/ccMBLuBU.s:4370   .debug_str:0000000000000374 .LASF8
+     /tmp/ccMBLuBU.s:4332   .debug_str:000000000000027c .LASF9
+     /tmp/ccMBLuBU.s:4340   .debug_str:00000000000002bf .LASF10
+     /tmp/ccMBLuBU.s:4282   .debug_str:0000000000000137 .LASF11
+     /tmp/ccMBLuBU.s:4326   .debug_str:0000000000000257 .LASF12
+     /tmp/ccMBLuBU.s:4294   .debug_str:000000000000017c .LASF13
+     /tmp/ccMBLuBU.s:4280   .debug_str:0000000000000127 .LASF14
+     /tmp/ccMBLuBU.s:4528   .debug_str:0000000000000805 .LASF15
+     /tmp/ccMBLuBU.s:4310   .debug_str:00000000000001dc .LASF16
+     /tmp/ccMBLuBU.s:4516   .debug_str:00000000000007a4 .LASF17
+     /tmp/ccMBLuBU.s:4436   .debug_str:0000000000000563 .LASF21
+     /tmp/ccMBLuBU.s:4268   .debug_str:00000000000000e4 .LASF31
+     /tmp/ccMBLuBU.s:4284   .debug_str:0000000000000146 .LASF18
+     /tmp/ccMBLuBU.s:4254   .debug_str:0000000000000094 .LASF19
+     /tmp/ccMBLuBU.s:4376   .debug_str:00000000000003b5 .LASF20
+     /tmp/ccMBLuBU.s:4250   .debug_str:0000000000000075 .LASF23
+     /tmp/ccMBLuBU.s:4414   .debug_str:00000000000004cb .LASF22
+     /tmp/ccMBLuBU.s:4600   .debug_str:0000000000000a50 .LASF24
+     /tmp/ccMBLuBU.s:4346   .debug_str:00000000000002e1 .LASF25
+     /tmp/ccMBLuBU.s:4472   .debug_str:000000000000066f .LASF26
+     /tmp/ccMBLuBU.s:4574   .debug_str:00000000000009d2 .LASF27
+     /tmp/ccMBLuBU.s:4362   .debug_str:0000000000000338 .LASF53
+GAS LISTING /tmp/ccMBLuBU.s 			page 27
+
+
+     /tmp/ccMBLuBU.s:4480   .debug_str:00000000000006a0 .LASF185
+     /tmp/ccMBLuBU.s:4572   .debug_str:00000000000009b6 .LASF186
+     /tmp/ccMBLuBU.s:4510   .debug_str:0000000000000771 .LASF38
+     /tmp/ccMBLuBU.s:4518   .debug_str:00000000000007ba .LASF40
+     /tmp/ccMBLuBU.s:4404   .debug_str:0000000000000479 .LASF28
+     /tmp/ccMBLuBU.s:4244   .debug_str:000000000000003f .LASF29
+     /tmp/ccMBLuBU.s:4534   .debug_str:0000000000000823 .LASF44
+     /tmp/ccMBLuBU.s:4406   .debug_str:0000000000000483 .LASF46
+     /tmp/ccMBLuBU.s:4394   .debug_str:0000000000000434 .LASF30
+     /tmp/ccMBLuBU.s:4288   .debug_str:0000000000000151 .LASF32
+     /tmp/ccMBLuBU.s:4568   .debug_str:00000000000009a5 .LASF89
+     /tmp/ccMBLuBU.s:4474   .debug_str:000000000000067b .LASF33
+     /tmp/ccMBLuBU.s:4554   .debug_str:0000000000000941 .LASF91
+     /tmp/ccMBLuBU.s:4526   .debug_str:00000000000007f8 .LASF34
+     /tmp/ccMBLuBU.s:4400   .debug_str:0000000000000449 .LASF35
+     /tmp/ccMBLuBU.s:4430   .debug_str:0000000000000544 .LASF187
+     /tmp/ccMBLuBU.s:4490   .debug_str:00000000000006e9 .LASF36
+     /tmp/ccMBLuBU.s:4236   .debug_str:0000000000000020 .LASF37
+     /tmp/ccMBLuBU.s:4380   .debug_str:00000000000003cd .LASF39
+     /tmp/ccMBLuBU.s:4476   .debug_str:0000000000000682 .LASF41
+     /tmp/ccMBLuBU.s:4304   .debug_str:00000000000001ba .LASF42
+     /tmp/ccMBLuBU.s:4290   .debug_str:0000000000000159 .LASF43
+     /tmp/ccMBLuBU.s:4544   .debug_str:0000000000000852 .LASF45
+     /tmp/ccMBLuBU.s:4328   .debug_str:0000000000000266 .LASF47
+     /tmp/ccMBLuBU.s:4530   .debug_str:0000000000000811 .LASF48
+     /tmp/ccMBLuBU.s:4608   .debug_str:0000000000000a7e .LASF49
+     /tmp/ccMBLuBU.s:4252   .debug_str:000000000000008e .LASF50
+     /tmp/ccMBLuBU.s:4484   .debug_str:00000000000006bc .LASF51
+     /tmp/ccMBLuBU.s:4546   .debug_str:0000000000000857 .LASF71
+     /tmp/ccMBLuBU.s:4536   .debug_str:000000000000082c .LASF52
+     /tmp/ccMBLuBU.s:4416   .debug_str:00000000000004dc .LASF54
+     /tmp/ccMBLuBU.s:4260   .debug_str:00000000000000b0 .LASF55
+     /tmp/ccMBLuBU.s:4566   .debug_str:000000000000098e .LASF56
+     /tmp/ccMBLuBU.s:4342   .debug_str:00000000000002cd .LASF57
+     /tmp/ccMBLuBU.s:4440   .debug_str:000000000000057b .LASF58
+     /tmp/ccMBLuBU.s:4248   .debug_str:000000000000006b .LASF59
+     /tmp/ccMBLuBU.s:4392   .debug_str:0000000000000420 .LASF60
+     /tmp/ccMBLuBU.s:4590   .debug_str:0000000000000a23 .LASF61
+     /tmp/ccMBLuBU.s:4272   .debug_str:00000000000000fd .LASF62
+     /tmp/ccMBLuBU.s:4538   .debug_str:0000000000000837 .LASF63
+     /tmp/ccMBLuBU.s:4324   .debug_str:0000000000000241 .LASF64
+     /tmp/ccMBLuBU.s:4412   .debug_str:00000000000004c0 .LASF65
+     /tmp/ccMBLuBU.s:4300   .debug_str:000000000000019b .LASF66
+     /tmp/ccMBLuBU.s:4562   .debug_str:000000000000097a .LASF67
+     /tmp/ccMBLuBU.s:4424   .debug_str:0000000000000515 .LASF68
+     /tmp/ccMBLuBU.s:4382   .debug_str:00000000000003d3 .LASF69
+     /tmp/ccMBLuBU.s:4552   .debug_str:0000000000000928 .LASF70
+     /tmp/ccMBLuBU.s:4498   .debug_str:0000000000000719 .LASF72
+     /tmp/ccMBLuBU.s:4364   .debug_str:0000000000000354 .LASF73
+     /tmp/ccMBLuBU.s:4234   .debug_str:000000000000001b .LASF74
+     /tmp/ccMBLuBU.s:4606   .debug_str:0000000000000a78 .LASF75
+     /tmp/ccMBLuBU.s:4564   .debug_str:0000000000000986 .LASF76
+     /tmp/ccMBLuBU.s:4514   .debug_str:000000000000079b .LASF77
+     /tmp/ccMBLuBU.s:4556   .debug_str:0000000000000958 .LASF78
+     /tmp/ccMBLuBU.s:4428   .debug_str:000000000000053c .LASF79
+     /tmp/ccMBLuBU.s:4532   .debug_str:000000000000081a .LASF80
+     /tmp/ccMBLuBU.s:4558   .debug_str:000000000000095f .LASF81
+GAS LISTING /tmp/ccMBLuBU.s 			page 28
+
+
+     /tmp/ccMBLuBU.s:4334   .debug_str:000000000000028c .LASF82
+     /tmp/ccMBLuBU.s:4576   .debug_str:00000000000009de .LASF83
+     /tmp/ccMBLuBU.s:4460   .debug_str:0000000000000605 .LASF97
+     /tmp/ccMBLuBU.s:4266   .debug_str:00000000000000d6 .LASF84
+     /tmp/ccMBLuBU.s:4384   .debug_str:00000000000003e0 .LASF86
+     /tmp/ccMBLuBU.s:4344   .debug_str:00000000000002d6 .LASF85
+     /tmp/ccMBLuBU.s:4410   .debug_str:00000000000004aa .LASF87
+     /tmp/ccMBLuBU.s:4316   .debug_str:0000000000000206 .LASF88
+     /tmp/ccMBLuBU.s:4448   .debug_str:00000000000005ba .LASF90
+     /tmp/ccMBLuBU.s:4512   .debug_str:000000000000077c .LASF92
+     /tmp/ccMBLuBU.s:4520   .debug_str:00000000000007dd .LASF93
+     /tmp/ccMBLuBU.s:4308   .debug_str:00000000000001c9 .LASF188
+     /tmp/ccMBLuBU.s:4454   .debug_str:00000000000005d4 .LASF189
+     /tmp/ccMBLuBU.s:4398   .debug_str:0000000000000441 .LASF94
+     /tmp/ccMBLuBU.s:4374   .debug_str:0000000000000398 .LASF95
+     /tmp/ccMBLuBU.s:4418   .debug_str:00000000000004f3 .LASF96
+     /tmp/ccMBLuBU.s:4482   .debug_str:00000000000006aa .LASF190
+     /tmp/ccMBLuBU.s:4470   .debug_str:0000000000000659 .LASF98
+     /tmp/ccMBLuBU.s:4258   .debug_str:00000000000000ab .LASF99
+     /tmp/ccMBLuBU.s:4446   .debug_str:00000000000005ab .LASF100
+     /tmp/ccMBLuBU.s:4390   .debug_str:0000000000000414 .LASF191
+     /tmp/ccMBLuBU.s:4302   .debug_str:00000000000001b2 .LASF101
+     /tmp/ccMBLuBU.s:4486   .debug_str:00000000000006cc .LASF102
+     /tmp/ccMBLuBU.s:4402   .debug_str:0000000000000470 .LASF103
+     /tmp/ccMBLuBU.s:4232   .debug_str:0000000000000006 .LASF104
+     /tmp/ccMBLuBU.s:4438   .debug_str:0000000000000573 .LASF105
+     /tmp/ccMBLuBU.s:4464   .debug_str:000000000000062a .LASF106
+     /tmp/ccMBLuBU.s:4262   .debug_str:00000000000000bc .LASF107
+     /tmp/ccMBLuBU.s:4466   .debug_str:000000000000063e .LASF108
+     /tmp/ccMBLuBU.s:4350   .debug_str:00000000000002fd .LASF109
+     /tmp/ccMBLuBU.s:4322   .debug_str:0000000000000231 .LASF110
+     /tmp/ccMBLuBU.s:4604   .debug_str:0000000000000a70 .LASF111
+     /tmp/ccMBLuBU.s:4492   .debug_str:00000000000006ee .LASF112
+     /tmp/ccMBLuBU.s:4540   .debug_str:0000000000000842 .LASF113
+     /tmp/ccMBLuBU.s:4524   .debug_str:00000000000007f3 .LASF114
+     /tmp/ccMBLuBU.s:4542   .debug_str:0000000000000847 .LASF115
+     /tmp/ccMBLuBU.s:4570   .debug_str:00000000000009aa .LASF116
+     /tmp/ccMBLuBU.s:4580   .debug_str:00000000000009f4 .LASF117
+     /tmp/ccMBLuBU.s:4242   .debug_str:0000000000000039 .LASF118
+     /tmp/ccMBLuBU.s:4408   .debug_str:00000000000004a4 .LASF119
+     /tmp/ccMBLuBU.s:4360   .debug_str:0000000000000332 .LASF120
+     /tmp/ccMBLuBU.s:4366   .debug_str:000000000000035d .LASF121
+     /tmp/ccMBLuBU.s:4598   .debug_str:0000000000000a49 .LASF122
+     /tmp/ccMBLuBU.s:4602   .debug_str:0000000000000a69 .LASF123
+     /tmp/ccMBLuBU.s:4312   .debug_str:00000000000001f2 .LASF124
+     /tmp/ccMBLuBU.s:4318   .debug_str:000000000000020f .LASF125
+     /tmp/ccMBLuBU.s:4274   .debug_str:0000000000000112 .LASF126
+     /tmp/ccMBLuBU.s:4278   .debug_str:0000000000000120 .LASF127
+     /tmp/ccMBLuBU.s:4504   .debug_str:000000000000073f .LASF128
+     /tmp/ccMBLuBU.s:4468   .debug_str:0000000000000654 .LASF129
+     /tmp/ccMBLuBU.s:4348   .debug_str:00000000000002ed .LASF130
+     /tmp/ccMBLuBU.s:4286   .debug_str:000000000000014b .LASF133
+     /tmp/ccMBLuBU.s:4368   .debug_str:0000000000000363 .LASF135
+     /tmp/ccMBLuBU.s:4298   .debug_str:0000000000000195 .LASF131
+     /tmp/ccMBLuBU.s:4560   .debug_str:0000000000000969 .LASF132
+     /tmp/ccMBLuBU.s:4338   .debug_str:00000000000002b9 .LASF134
+     /tmp/ccMBLuBU.s:4494   .debug_str:0000000000000700 .LASF136
+GAS LISTING /tmp/ccMBLuBU.s 			page 29
+
+
+     /tmp/ccMBLuBU.s:4238   .debug_str:000000000000002c .LASF137
+     /tmp/ccMBLuBU.s:4522   .debug_str:00000000000007e2 .LASF138
+     /tmp/ccMBLuBU.s:4582   .debug_str:0000000000000a01 .LASF192
+     /tmp/ccMBLuBU.s:4422   .debug_str:0000000000000506 .LASF139
+     /tmp/ccMBLuBU.s:4610   .debug_str:0000000000000a91 .LASF140
+     /tmp/ccMBLuBU.s:4614   .debug_str:0000000000000ab4 .LASF141
+     /tmp/ccMBLuBU.s:4434   .debug_str:0000000000000552 .LASF142
+     /tmp/ccMBLuBU.s:4612   .debug_str:0000000000000a9f .LASF143
+     /tmp/ccMBLuBU.s:4372   .debug_str:0000000000000387 .LASF144
+     /tmp/ccMBLuBU.s:4270   .debug_str:00000000000000ef .LASF145
+     /tmp/ccMBLuBU.s:4452   .debug_str:00000000000005c5 .LASF146
+     /tmp/ccMBLuBU.s:4592   .debug_str:0000000000000a2d .LASF147
+     /tmp/ccMBLuBU.s:4426   .debug_str:000000000000052c .LASF148
+     /tmp/ccMBLuBU.s:4246   .debug_str:0000000000000060 .LASF149
+     /tmp/ccMBLuBU.s:4458   .debug_str:00000000000005f3 .LASF150
+     /tmp/ccMBLuBU.s:4506   .debug_str:0000000000000756 .LASF151
+     /tmp/ccMBLuBU.s:4256   .debug_str:0000000000000099 .LASF152
+     /tmp/ccMBLuBU.s:630    .text:0000000000000278 .LFB35
+     /tmp/ccMBLuBU.s:755    .text:000000000000032c .LFE35
+     /tmp/ccMBLuBU.s:4596   .debug_str:0000000000000a42 .LASF153
+     /tmp/ccMBLuBU.s:4550   .debug_str:0000000000000923 .LASF154
+     /tmp/ccMBLuBU.s:4586   .debug_str:0000000000000a0d .LASF155
+     /tmp/ccMBLuBU.s:714    .text:00000000000002dc .LBB31
+     /tmp/ccMBLuBU.s:751    .text:0000000000000328 .LBE31
+     /tmp/ccMBLuBU.s:4508   .debug_str:0000000000000768 .LASF156
+     /tmp/ccMBLuBU.s:731    .text:0000000000000300 .LBB32
+     /tmp/ccMBLuBU.s:742    .text:0000000000000318 .LBE32
+     /tmp/ccMBLuBU.s:3644   .debug_loc:0000000000000000 .LLST29
+     /tmp/ccMBLuBU.s:741    .text:0000000000000318 .LVL51
+     /tmp/ccMBLuBU.s:718    .text:00000000000002e4 .LVL48
+     /tmp/ccMBLuBU.s:750    .text:0000000000000328 .LVL52
+     /tmp/ccMBLuBU.s:4386   .debug_str:00000000000003f9 .LASF157
+     /tmp/ccMBLuBU.s:491    .text:00000000000001c8 .LFB34
+     /tmp/ccMBLuBU.s:624    .text:0000000000000278 .LFE34
+     /tmp/ccMBLuBU.s:575    .text:000000000000022c .LBB26
+     /tmp/ccMBLuBU.s:621    .text:0000000000000278 .LBE26
+     /tmp/ccMBLuBU.s:4432   .debug_str:0000000000000549 .LASF158
+     /tmp/ccMBLuBU.s:601    .text:000000000000025c .LBB27
+     /tmp/ccMBLuBU.s:608    .text:0000000000000260 .LBE27
+     /tmp/ccMBLuBU.s:3652   .debug_loc:0000000000000024 .LLST28
+     /tmp/ccMBLuBU.s:595    .text:0000000000000250 .LVL44
+     /tmp/ccMBLuBU.s:619    .text:0000000000000274 .LVL47
+     /tmp/ccMBLuBU.s:4292   .debug_str:000000000000016c .LASF159
+     /tmp/ccMBLuBU.s:10     .text:0000000000000000 .LFB33
+     /tmp/ccMBLuBU.s:485    .text:00000000000001c8 .LFE33
+     /tmp/ccMBLuBU.s:4230   .debug_str:0000000000000000 .LASF160
+     /tmp/ccMBLuBU.s:3659   .debug_loc:0000000000000047 .LLST0
+     /tmp/ccMBLuBU.s:4584   .debug_str:0000000000000a07 .LASF161
+     /tmp/ccMBLuBU.s:3792   .debug_loc:000000000000028c .LLST1
+     /tmp/ccMBLuBU.s:4306   .debug_str:00000000000001c3 .LASF162
+     /tmp/ccMBLuBU.s:3851   .debug_loc:00000000000003a6 .LLST2
+     /tmp/ccMBLuBU.s:4500   .debug_str:000000000000072a .LASF163
+     /tmp/ccMBLuBU.s:3914   .debug_loc:00000000000004d3 .LLST3
+     /tmp/ccMBLuBU.s:4450   .debug_str:00000000000005bf .LASF164
+     /tmp/ccMBLuBU.s:3977   .debug_loc:0000000000000600 .LLST4
+     /tmp/ccMBLuBU.s:4220   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccMBLuBU.s:4314   .debug_str:0000000000000201 .LASF165
+GAS LISTING /tmp/ccMBLuBU.s 			page 30
+
+
+     /tmp/ccMBLuBU.s:236    .text:00000000000000c4 .LBB17
+     /tmp/ccMBLuBU.s:480    .text:00000000000001c8 .LBE17
+     /tmp/ccMBLuBU.s:4578   .debug_str:00000000000009eb .LASF166
+     /tmp/ccMBLuBU.s:4040   .debug_loc:000000000000072d .LLST5
+     /tmp/ccMBLuBU.s:4047   .debug_loc:0000000000000750 .LLST6
+     /tmp/ccMBLuBU.s:4496   .debug_str:0000000000000711 .LASF167
+     /tmp/ccMBLuBU.s:4054   .debug_loc:0000000000000773 .LLST7
+     /tmp/ccMBLuBU.s:4276   .debug_str:0000000000000119 .LASF168
+     /tmp/ccMBLuBU.s:4061   .debug_loc:0000000000000796 .LLST8
+     /tmp/ccMBLuBU.s:4264   .debug_str:00000000000000c6 .LASF169
+     /tmp/ccMBLuBU.s:4068   .debug_loc:00000000000007b9 .LLST9
+     /tmp/ccMBLuBU.s:4594   .debug_str:0000000000000a3b .LASF170
+     /tmp/ccMBLuBU.s:4075   .debug_loc:00000000000007dc .LLST10
+     /tmp/ccMBLuBU.s:4462   .debug_str:000000000000061c .LASF171
+     /tmp/ccMBLuBU.s:4082   .debug_loc:00000000000007ff .LLST11
+     /tmp/ccMBLuBU.s:4089   .debug_loc:0000000000000822 .LLST12
+     /tmp/ccMBLuBU.s:4096   .debug_loc:0000000000000845 .LLST13
+     /tmp/ccMBLuBU.s:4420   .debug_str:00000000000004f8 .LASF172
+     /tmp/ccMBLuBU.s:4103   .debug_loc:0000000000000868 .LLST14
+     /tmp/ccMBLuBU.s:4354   .debug_str:0000000000000310 .LASF173
+     /tmp/ccMBLuBU.s:4115   .debug_loc:000000000000089f .LLST15
+     /tmp/ccMBLuBU.s:4356   .debug_str:0000000000000318 .LASF174
+     /tmp/ccMBLuBU.s:4122   .debug_loc:00000000000008c2 .LLST16
+     /tmp/ccMBLuBU.s:4129   .debug_loc:00000000000008e5 .LLST17
+     /tmp/ccMBLuBU.s:4396   .debug_str:0000000000000439 .LASF175
+     /tmp/ccMBLuBU.s:4136   .debug_loc:0000000000000908 .LLST18
+     /tmp/ccMBLuBU.s:4143   .debug_loc:000000000000092b .LLST19
+     /tmp/ccMBLuBU.s:4150   .debug_loc:000000000000094e .LLST20
+     /tmp/ccMBLuBU.s:4296   .debug_str:000000000000018c .LASF176
+     /tmp/ccMBLuBU.s:4157   .debug_loc:0000000000000971 .LLST21
+     /tmp/ccMBLuBU.s:4164   .debug_loc:0000000000000994 .LLST22
+     /tmp/ccMBLuBU.s:4171   .debug_loc:00000000000009b7 .LLST23
+     /tmp/ccMBLuBU.s:4178   .debug_loc:00000000000009da .LLST24
+     /tmp/ccMBLuBU.s:307    .text:0000000000000100 .LBB18
+     /tmp/ccMBLuBU.s:315    .text:0000000000000104 .LBE18
+     /tmp/ccMBLuBU.s:4185   .debug_loc:00000000000009fd .LLST25
+     /tmp/ccMBLuBU.s:334    .text:0000000000000114 .LBB20
+     /tmp/ccMBLuBU.s:342    .text:000000000000011c .LBE20
+     /tmp/ccMBLuBU.s:4192   .debug_loc:0000000000000a20 .LLST26
+     /tmp/ccMBLuBU.s:4200   .debug_loc:0000000000000a44 .LLST27
+     /tmp/ccMBLuBU.s:244    .text:00000000000000cc .LVL10
+     /tmp/ccMBLuBU.s:263    .text:00000000000000dc .LVL12
+     /tmp/ccMBLuBU.s:288    .text:00000000000000ec .LVL14
+     /tmp/ccMBLuBU.s:346    .text:0000000000000124 .LVL21
+     /tmp/ccMBLuBU.s:350    .text:000000000000012c .LVL22
+     /tmp/ccMBLuBU.s:365    .text:0000000000000148 .LVL24
+     /tmp/ccMBLuBU.s:376    .text:0000000000000154 .LVL26
+     /tmp/ccMBLuBU.s:391    .text:0000000000000164 .LVL29
+     /tmp/ccMBLuBU.s:402    .text:0000000000000170 .LVL31
+     /tmp/ccMBLuBU.s:413    .text:000000000000017c .LVL33
+     /tmp/ccMBLuBU.s:424    .text:0000000000000188 .LVL35
+     /tmp/ccMBLuBU.s:440    .text:00000000000001a0 .LVL37
+     /tmp/ccMBLuBU.s:457    .text:00000000000001b0 .LVL39
+     /tmp/ccMBLuBU.s:477    .text:00000000000001c4 .LVL42
+     /tmp/ccMBLuBU.s:199    .text:00000000000000a4 .LVL8
+     /tmp/ccMBLuBU.s:4330   .debug_str:0000000000000277 .LASF177
+     /tmp/ccMBLuBU.s:4388   .debug_str:0000000000000409 .LASF178
+GAS LISTING /tmp/ccMBLuBU.s 			page 31
+
+
+     /tmp/ccMBLuBU.s:4588   .debug_str:0000000000000a15 .LASF179
+     /tmp/ccMBLuBU.s:4502   .debug_str:0000000000000730 .LASF180
+     /tmp/ccMBLuBU.s:4444   .debug_str:00000000000005a2 .LASF181
+     /tmp/ccMBLuBU.s:736    .text:000000000000030c .LVL50
+     /tmp/ccMBLuBU.s:600    .text:000000000000025c .LVL45
+     /tmp/ccMBLuBU.s:606    .text:0000000000000260 .LVL46
+     /tmp/ccMBLuBU.s:29     .text:0000000000000014 .LVL0
+     /tmp/ccMBLuBU.s:230    .text:00000000000000c4 .LVL9
+     /tmp/ccMBLuBU.s:254    .text:00000000000000d4 .LVL11
+     /tmp/ccMBLuBU.s:273    .text:00000000000000e4 .LVL13
+     /tmp/ccMBLuBU.s:298    .text:00000000000000f4 .LVL15
+     /tmp/ccMBLuBU.s:320    .text:000000000000010c .LVL18
+     /tmp/ccMBLuBU.s:331    .text:0000000000000114 .LVL19
+     /tmp/ccMBLuBU.s:355    .text:0000000000000134 .LVL23
+     /tmp/ccMBLuBU.s:368    .text:000000000000014c .LVL25
+     /tmp/ccMBLuBU.s:379    .text:0000000000000158 .LVL27
+     /tmp/ccMBLuBU.s:394    .text:0000000000000168 .LVL30
+     /tmp/ccMBLuBU.s:405    .text:0000000000000174 .LVL32
+     /tmp/ccMBLuBU.s:416    .text:0000000000000180 .LVL34
+     /tmp/ccMBLuBU.s:427    .text:000000000000018c .LVL36
+     /tmp/ccMBLuBU.s:450    .text:00000000000001a8 .LVL38
+     /tmp/ccMBLuBU.s:467    .text:00000000000001b8 .LVL40
+     /tmp/ccMBLuBU.s:35     .text:0000000000000018 .LVL1
+     /tmp/ccMBLuBU.s:192    .text:0000000000000090 .LVL5
+     /tmp/ccMBLuBU.s:306    .text:0000000000000100 .LVL16
+     /tmp/ccMBLuBU.s:475    .text:00000000000001bc .LVL41
+     /tmp/ccMBLuBU.s:41     .text:000000000000001c .LVL2
+     /tmp/ccMBLuBU.s:196    .text:0000000000000098 .LVL7
+     /tmp/ccMBLuBU.s:389    .text:000000000000015c .LVL28
+     /tmp/ccMBLuBU.s:47     .text:0000000000000020 .LVL3
+     /tmp/ccMBLuBU.s:194    .text:0000000000000094 .LVL6
+     /tmp/ccMBLuBU.s:53     .text:0000000000000024 .LVL4
+     /tmp/ccMBLuBU.s:313    .text:0000000000000104 .LVL17
+     /tmp/ccMBLuBU.s:340    .text:000000000000011c .LVL20
+     /tmp/ccMBLuBU.s:767    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccMBLuBU.s:93     .text:0000000000000054 .LBB15
+     /tmp/ccMBLuBU.s:188    .text:000000000000008c .LBE15
+     /tmp/ccMBLuBU.s:234    .text:00000000000000c4 .LBB23
+     /tmp/ccMBLuBU.s:482    .text:00000000000001c8 .LBE23
+
+UNDEFINED SYMBOLS
+_Z8printIntiii
+_ZN15MemoryAllocator9mem_allocEm
+_ZN15MemoryAllocator8mem_freeEPv
+_ZN3TCB12createThreadEPPS_PFvPvES2_S2_
+_ZN3TCB7runningE
+_ZN3TCB8waitListEv
+_ZN3TCB8dispatchEv
+_ZN3TCB16timeSliceCounterE
+_ZN3TCB4joinEPS_
+_ZN3Sem7semOpenEPPS_j
+_ZN3Sem8semCloseEPS_
+_ZN3Sem7semWaitEPS_
+_ZN3Sem9semSignalEPS_
+_ZN3TCB5sleepEm
+_ZN4Cons5getcIEv
+_ZN4Cons5putcOEc
+GAS LISTING /tmp/ccMBLuBU.s 			page 32
+
+
+_ZN8Sleeping3getEv
+plic_claim
+CONSOLE_STATUS
+CONSOLE_RX_DATA
+_ZN4Cons5putcIEc
+plic_complete

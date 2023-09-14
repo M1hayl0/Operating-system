@@ -1,0 +1,757 @@
+GAS LISTING /tmp/ccUIydbg.s 			page 1
+
+
+   1              		.file	"Sleeping.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              		.align	2
+   7              		.globl	_ZN8Sleeping3getEv
+   9              	_ZN8Sleeping3getEv:
+  10              	.LFB18:
+  11              		.file 1 "src/Sleeping.cpp"
+   1:src/Sleeping.cpp **** #include "../h/Sleeping.hpp"
+   2:src/Sleeping.cpp **** 
+   3:src/Sleeping.cpp **** Sleeping::Elem* Sleeping::head = nullptr;
+   4:src/Sleeping.cpp **** 
+   5:src/Sleeping.cpp **** void Sleeping::get() {
+  12              		.loc 1 5 22
+  13              		.cfi_startproc
+  14 0000 130101FE 		addi	sp,sp,-32
+  15              		.cfi_def_cfa_offset 32
+  16 0004 233C1100 		sd	ra,24(sp)
+  17 0008 23388100 		sd	s0,16(sp)
+  18 000c 23349100 		sd	s1,8(sp)
+  19 0010 23302101 		sd	s2,0(sp)
+  20              		.cfi_offset 1, -8
+  21              		.cfi_offset 8, -16
+  22              		.cfi_offset 9, -24
+  23              		.cfi_offset 18, -32
+  24 0014 13040102 		addi	s0,sp,32
+  25              		.cfi_def_cfa 8, 0
+   6:src/Sleeping.cpp ****     if(!head) return;
+  26              		.loc 1 6 5
+  27              		.loc 1 6 8 is_stmt 0
+  28 0018 97040000 		ld	s1,.LANCHOR0
+  28      83B40400 
+  29              		.loc 1 6 5
+  30 0020 638A0400 		beqz	s1,.L1
+   7:src/Sleeping.cpp ****     head->time--;
+  31              		.loc 1 7 5 is_stmt 1
+  32              		.loc 1 7 11 is_stmt 0
+  33 0024 83B70401 		ld	a5,16(s1)
+  34              		.loc 1 7 15
+  35 0028 9387F7FF 		addi	a5,a5,-1
+  36 002c 23B8F400 		sd	a5,16(s1)
+   8:src/Sleeping.cpp ****     if(!head->time) {
+  37              		.loc 1 8 5 is_stmt 1
+  38              	.LBB13:
+  39 0030 63800702 		beqz	a5,.L3
+  40              	.L1:
+  41              	.LBE13:
+   9:src/Sleeping.cpp ****         Elem *cur = head;
+  10:src/Sleeping.cpp ****         while(cur) {
+  11:src/Sleeping.cpp ****             if(!cur->time) {
+  12:src/Sleeping.cpp ****                 Scheduler::put(cur->thread);
+  13:src/Sleeping.cpp ****                 cur->thread->setSleeping(false);
+  14:src/Sleeping.cpp ****                 Elem *f = cur;
+  15:src/Sleeping.cpp ****                 cur = cur->next;
+  16:src/Sleeping.cpp ****                 delete f;
+GAS LISTING /tmp/ccUIydbg.s 			page 2
+
+
+  17:src/Sleeping.cpp ****             } else {
+  18:src/Sleeping.cpp ****                 head = cur;
+  19:src/Sleeping.cpp ****                 break;
+  20:src/Sleeping.cpp ****             }
+  21:src/Sleeping.cpp ****         }
+  22:src/Sleeping.cpp ****         if(!cur) head = cur;
+  23:src/Sleeping.cpp ****     }
+  24:src/Sleeping.cpp **** }
+  42              		.loc 1 24 1 is_stmt 0
+  43 0034 83308101 		ld	ra,24(sp)
+  44              		.cfi_remember_state
+  45              		.cfi_restore 1
+  46 0038 03340101 		ld	s0,16(sp)
+  47              		.cfi_restore 8
+  48              		.cfi_def_cfa 2, 32
+  49 003c 83348100 		ld	s1,8(sp)
+  50              		.cfi_restore 9
+  51 0040 03390100 		ld	s2,0(sp)
+  52              		.cfi_restore 18
+  53 0044 13010102 		addi	sp,sp,32
+  54              		.cfi_def_cfa_offset 0
+  55 0048 67800000 		jr	ra
+  56              	.LVL0:
+  57              	.L6:
+  58              		.cfi_restore_state
+   5:src/Sleeping.cpp ****     if(!head) return;
+  59              		.loc 1 5 22
+  60 004c 93040900 		mv	s1,s2
+  61              	.LVL1:
+  62              	.L3:
+  63              	.LBB20:
+  64              	.LBB14:
+  10:src/Sleeping.cpp ****             if(!cur->time) {
+  65              		.loc 1 10 9 is_stmt 1
+  10:src/Sleeping.cpp ****             if(!cur->time) {
+  66              		.loc 1 10 15
+  67 0050 63800404 		beqz	s1,.L4
+  68              	.LBE14:
+  69              	.LBE20:
+  11:src/Sleeping.cpp ****                 Scheduler::put(cur->thread);
+  70              		.loc 1 11 13
+  71              	.LBB21:
+  72              	.LBB19:
+  73              	.LBB15:
+  11:src/Sleeping.cpp ****                 Scheduler::put(cur->thread);
+  74              		.loc 1 11 22 is_stmt 0
+  75 0054 83B70401 		ld	a5,16(s1)
+  11:src/Sleeping.cpp ****                 Scheduler::put(cur->thread);
+  76              		.loc 1 11 13
+  77 0058 63980702 		bnez	a5,.L5
+  78              	.LBB16:
+  12:src/Sleeping.cpp ****                 cur->thread->setSleeping(false);
+  79              		.loc 1 12 17 is_stmt 1
+  12:src/Sleeping.cpp ****                 cur->thread->setSleeping(false);
+  80              		.loc 1 12 31 is_stmt 0
+  81 005c 03B50400 		ld	a0,0(s1)
+  82 0060 97000000 		call	_ZN9Scheduler3putEP3TCB@plt
+GAS LISTING /tmp/ccUIydbg.s 			page 3
+
+
+  82      E7800000 
+  83              	.LVL2:
+  13:src/Sleeping.cpp ****                 Elem *f = cur;
+  84              		.loc 1 13 17 is_stmt 1
+  13:src/Sleeping.cpp ****                 Elem *f = cur;
+  85              		.loc 1 13 22 is_stmt 0
+  86 0068 83B70400 		ld	a5,0(s1)
+  87              	.LVL3:
+  88              	.LBB17:
+  89              	.LBB18:
+  90              		.file 2 "src/../h/../h/TCB.hpp"
+   1:src/../h/../h/TCB.hpp **** #ifndef PROJECT_BASE_TCB_HPP
+   2:src/../h/../h/TCB.hpp **** #define PROJECT_BASE_TCB_HPP
+   3:src/../h/../h/TCB.hpp **** 
+   4:src/../h/../h/TCB.hpp **** #include "../lib/hw.h"
+   5:src/../h/../h/TCB.hpp **** #include "../h/Scheduler.hpp"
+   6:src/../h/../h/TCB.hpp **** #include "../h/Sleeping.hpp"
+   7:src/../h/../h/TCB.hpp **** 
+   8:src/../h/../h/TCB.hpp **** class TCB {
+   9:src/../h/../h/TCB.hpp **** public:
+  10:src/../h/../h/TCB.hpp ****     friend class Sem;
+  11:src/../h/../h/TCB.hpp ****     using Body = void (*)(void*);
+  12:src/../h/../h/TCB.hpp **** 
+  13:src/../h/../h/TCB.hpp ****     static int createThread(TCB **handle, Body body, void *arg, void *stack);
+  14:src/../h/../h/TCB.hpp ****     ~TCB();
+  15:src/../h/../h/TCB.hpp ****     static void yield();
+  16:src/../h/../h/TCB.hpp ****     static void dispatch();
+  17:src/../h/../h/TCB.hpp ****     static void join(TCB *handle);
+  18:src/../h/../h/TCB.hpp ****     void waitList();
+  19:src/../h/../h/TCB.hpp ****     static int sleep(time_t time);
+  20:src/../h/../h/TCB.hpp **** 
+  21:src/../h/../h/TCB.hpp ****     static TCB *running;
+  22:src/../h/../h/TCB.hpp **** 
+  23:src/../h/../h/TCB.hpp ****     bool isFinished() const { return finished; }
+  24:src/../h/../h/TCB.hpp ****     void setFinished(bool f) { finished = f; }
+  25:src/../h/../h/TCB.hpp ****     bool isJoined() const { return joined; }
+  26:src/../h/../h/TCB.hpp ****     void setJoined(bool b) { joined = b; }
+  27:src/../h/../h/TCB.hpp ****     bool isBlocked() const { return blocked; }
+  28:src/../h/../h/TCB.hpp ****     void setBlocked(bool b) { blocked = b; }
+  29:src/../h/../h/TCB.hpp ****     bool isSleeping() const { return sleeping; }
+  30:src/../h/../h/TCB.hpp ****     void setSleeping(bool b) { sleeping = b; }
+  91              		.loc 2 30 32 is_stmt 1
+  92              		.loc 2 30 41 is_stmt 0
+  93 006c A3850702 		sb	zero,43(a5)
+  94              	.LVL4:
+  95              	.LBE18:
+  96              	.LBE17:
+  14:src/Sleeping.cpp ****                 cur = cur->next;
+  97              		.loc 1 14 17 is_stmt 1
+  15:src/Sleeping.cpp ****                 delete f;
+  98              		.loc 1 15 17
+  15:src/Sleeping.cpp ****                 delete f;
+  99              		.loc 1 15 21 is_stmt 0
+ 100 0070 03B98400 		ld	s2,8(s1)
+ 101              	.LVL5:
+  16:src/Sleeping.cpp ****             } else {
+ 102              		.loc 1 16 17 is_stmt 1
+GAS LISTING /tmp/ccUIydbg.s 			page 4
+
+
+  16:src/Sleeping.cpp ****             } else {
+ 103              		.loc 1 16 25 is_stmt 0
+ 104 0074 E38C04FC 		beqz	s1,.L6
+  16:src/Sleeping.cpp ****             } else {
+ 105              		.loc 1 16 24 discriminator 1
+ 106 0078 13850400 		mv	a0,s1
+ 107 007c 97000000 		call	_ZdlPv@plt
+ 107      E7800000 
+ 108              	.LVL6:
+ 109 0084 6FF09FFC 		j	.L6
+ 110              	.LVL7:
+ 111              	.L5:
+ 112              	.LBE16:
+  18:src/Sleeping.cpp ****                 break;
+ 113              		.loc 1 18 17 is_stmt 1
+  18:src/Sleeping.cpp ****                 break;
+ 114              		.loc 1 18 22 is_stmt 0
+ 115 0088 97070000 		sd	s1,.LANCHOR0,a5
+ 115      23B09700 
+  19:src/Sleeping.cpp ****             }
+ 116              		.loc 1 19 17 is_stmt 1
+ 117              	.L4:
+ 118              	.LBE15:
+  22:src/Sleeping.cpp ****     }
+ 119              		.loc 1 22 9
+ 120 0090 E39204FA 		bnez	s1,.L1
+  22:src/Sleeping.cpp ****     }
+ 121              		.loc 1 22 18 discriminator 1
+  22:src/Sleeping.cpp ****     }
+ 122              		.loc 1 22 23 is_stmt 0 discriminator 1
+ 123 0094 97070000 		sd	s1,.LANCHOR0,a5
+ 123      23B09700 
+ 124 009c 6FF09FF9 		j	.L1
+ 125              	.LBE19:
+ 126              	.LBE21:
+ 127              		.cfi_endproc
+ 128              	.LFE18:
+ 130              		.align	2
+ 131              		.globl	_ZN8Sleeping3putEP3TCBm
+ 133              	_ZN8Sleeping3putEP3TCBm:
+ 134              	.LFB19:
+  25:src/Sleeping.cpp **** 
+  26:src/Sleeping.cpp **** void Sleeping::put(TCB *t, time_t time) {
+ 135              		.loc 1 26 41 is_stmt 1
+ 136              		.cfi_startproc
+ 137              	.LVL8:
+ 138 00a0 130101FE 		addi	sp,sp,-32
+ 139              		.cfi_def_cfa_offset 32
+ 140 00a4 233C1100 		sd	ra,24(sp)
+ 141 00a8 23388100 		sd	s0,16(sp)
+ 142 00ac 23349100 		sd	s1,8(sp)
+ 143 00b0 23302101 		sd	s2,0(sp)
+ 144              		.cfi_offset 1, -8
+ 145              		.cfi_offset 8, -16
+ 146              		.cfi_offset 9, -24
+ 147              		.cfi_offset 18, -32
+ 148 00b4 13040102 		addi	s0,sp,32
+GAS LISTING /tmp/ccUIydbg.s 			page 5
+
+
+ 149              		.cfi_def_cfa 8, 0
+ 150 00b8 13090500 		mv	s2,a0
+ 151 00bc 93840500 		mv	s1,a1
+  27:src/Sleeping.cpp ****     Elem *newElem = new Elem(t, nullptr, time);
+ 152              		.loc 1 27 5
+ 153              		.loc 1 27 46 is_stmt 0
+ 154 00c0 13058001 		li	a0,24
+ 155              	.LVL9:
+ 156 00c4 97000000 		call	_Znwm@plt
+ 156      E7800000 
+ 157              	.LVL10:
+ 158              	.LBB22:
+ 159              	.LBB23:
+ 160              		.file 3 "src/../h/Sleeping.hpp"
+   1:src/../h/Sleeping.hpp **** #ifndef PROJECT_BASE_SLEEPING_HPP
+   2:src/../h/Sleeping.hpp **** #define PROJECT_BASE_SLEEPING_HPP
+   3:src/../h/Sleeping.hpp **** 
+   4:src/../h/Sleeping.hpp **** #include "../h/TCB.hpp"
+   5:src/../h/Sleeping.hpp **** 
+   6:src/../h/Sleeping.hpp **** class TCB;
+   7:src/../h/Sleeping.hpp **** 
+   8:src/../h/Sleeping.hpp **** class Sleeping {
+   9:src/../h/Sleeping.hpp ****     struct Elem {
+  10:src/../h/Sleeping.hpp ****         TCB *thread;
+  11:src/../h/Sleeping.hpp ****         Elem *next = nullptr;
+  12:src/../h/Sleeping.hpp ****         time_t time;
+  13:src/../h/Sleeping.hpp ****         Elem(TCB *t, Elem *n, time_t tm) : thread(t), next(n), time(tm) {}
+ 161              		.loc 3 13 71
+ 162 00cc 23302501 		sd	s2,0(a0)
+ 163 00d0 23340500 		sd	zero,8(a0)
+ 164 00d4 23389500 		sd	s1,16(a0)
+ 165              	.LVL11:
+ 166              	.LBE23:
+ 167              	.LBE22:
+  28:src/Sleeping.cpp **** 
+  29:src/Sleeping.cpp ****     if(!head) { head = newElem; }
+ 168              		.loc 1 29 5 is_stmt 1
+ 169              	.LBB24:
+ 170              		.loc 1 29 8 is_stmt 0
+ 171 00d8 97070000 		ld	a5,.LANCHOR0
+ 171      83B70700 
+ 172              		.loc 1 29 5
+ 173 00e0 63860700 		beqz	a5,.L17
+ 174              	.LBB25:
+  30:src/Sleeping.cpp ****     else {
+  31:src/Sleeping.cpp ****         Elem *cur = head, *prev = nullptr;
+ 175              		.loc 1 31 28
+ 176 00e4 13060000 		li	a2,0
+ 177 00e8 6F000002 		j	.L9
+ 178              	.L17:
+ 179              	.LBE25:
+  29:src/Sleeping.cpp ****     else {
+ 180              		.loc 1 29 17 is_stmt 1 discriminator 1
+  29:src/Sleeping.cpp ****     else {
+ 181              		.loc 1 29 22 is_stmt 0 discriminator 1
+ 182 00ec 97070000 		sd	a0,.LANCHOR0,a5
+ 182      23B0A700 
+GAS LISTING /tmp/ccUIydbg.s 			page 6
+
+
+ 183 00f4 6F004005 		j	.L8
+ 184              	.LVL12:
+ 185              	.L18:
+ 186              	.LBB26:
+  32:src/Sleeping.cpp ****         for(; cur; cur = cur->next) {
+  33:src/Sleeping.cpp ****             if(newElem->time >= cur->time) {
+  34:src/Sleeping.cpp ****                 newElem->time -= cur->time;
+ 187              		.loc 1 34 17 is_stmt 1
+ 188              		.loc 1 34 31 is_stmt 0
+ 189 00f8 3307D740 		sub	a4,a4,a3
+ 190 00fc 2338E500 		sd	a4,16(a0)
+  35:src/Sleeping.cpp ****             } else break;
+  36:src/Sleeping.cpp ****             prev = cur;
+ 191              		.loc 1 36 13 is_stmt 1
+ 192              	.LVL13:
+  32:src/Sleeping.cpp ****         for(; cur; cur = cur->next) {
+ 193              		.loc 1 32 9
+ 194              		.loc 1 36 18 is_stmt 0
+ 195 0100 13860700 		mv	a2,a5
+  32:src/Sleeping.cpp ****         for(; cur; cur = cur->next) {
+ 196              		.loc 1 32 24
+ 197 0104 83B78700 		ld	a5,8(a5)
+ 198              	.LVL14:
+ 199              	.L9:
+  32:src/Sleeping.cpp ****         for(; cur; cur = cur->next) {
+ 200              		.loc 1 32 9 is_stmt 1 discriminator 1
+  32:src/Sleeping.cpp ****         for(; cur; cur = cur->next) {
+ 201              		.loc 1 32 15 discriminator 1
+ 202 0108 63880700 		beqz	a5,.L11
+  33:src/Sleeping.cpp ****                 newElem->time -= cur->time;
+ 203              		.loc 1 33 13
+  33:src/Sleeping.cpp ****                 newElem->time -= cur->time;
+ 204              		.loc 1 33 25 is_stmt 0
+ 205 010c 03370501 		ld	a4,16(a0)
+  33:src/Sleeping.cpp ****                 newElem->time -= cur->time;
+ 206              		.loc 1 33 38
+ 207 0110 83B60701 		ld	a3,16(a5)
+  33:src/Sleeping.cpp ****                 newElem->time -= cur->time;
+ 208              		.loc 1 33 13
+ 209 0114 E372D7FE 		bgeu	a4,a3,.L18
+ 210              	.L11:
+  37:src/Sleeping.cpp ****         }
+  38:src/Sleeping.cpp ****         if(prev) prev->next = newElem;
+ 211              		.loc 1 38 9 is_stmt 1
+ 212 0118 63040600 		beqz	a2,.L12
+ 213              		.loc 1 38 18 discriminator 1
+ 214              		.loc 1 38 29 is_stmt 0 discriminator 1
+ 215 011c 2334A600 		sd	a0,8(a2)
+ 216              	.L12:
+  39:src/Sleeping.cpp ****         newElem->next = cur;
+ 217              		.loc 1 39 9 is_stmt 1
+ 218              		.loc 1 39 23 is_stmt 0
+ 219 0120 2334F500 		sd	a5,8(a0)
+  40:src/Sleeping.cpp ****         if(!prev) head = newElem;
+ 220              		.loc 1 40 9 is_stmt 1
+ 221 0124 630E0602 		beqz	a2,.L19
+ 222              	.L13:
+GAS LISTING /tmp/ccUIydbg.s 			page 7
+
+
+  41:src/Sleeping.cpp ****         if(cur) {
+ 223              		.loc 1 41 9
+ 224 0128 63800702 		beqz	a5,.L8
+  42:src/Sleeping.cpp ****             if(prev) cur->time -= newElem->time - prev->time;
+ 225              		.loc 1 42 13
+ 226 012c 63000604 		beqz	a2,.L14
+ 227              		.loc 1 42 22 discriminator 1
+ 228              		.loc 1 42 57 is_stmt 0 discriminator 1
+ 229 0130 03370601 		ld	a4,16(a2)
+ 230              		.loc 1 42 44 discriminator 1
+ 231 0134 83360501 		ld	a3,16(a0)
+ 232              		.loc 1 42 32 discriminator 1
+ 233 0138 B306D740 		sub	a3,a4,a3
+ 234 013c 03B70701 		ld	a4,16(a5)
+ 235 0140 3307D700 		add	a4,a4,a3
+ 236 0144 23B8E700 		sd	a4,16(a5)
+ 237              	.LVL15:
+ 238              	.L8:
+ 239              	.LBE26:
+ 240              	.LBE24:
+  43:src/Sleeping.cpp ****             else cur->time -= newElem->time;
+  44:src/Sleeping.cpp ****         }
+  45:src/Sleeping.cpp ****     }
+  46:src/Sleeping.cpp **** }
+ 241              		.loc 1 46 1
+ 242 0148 83308101 		ld	ra,24(sp)
+ 243              		.cfi_remember_state
+ 244              		.cfi_restore 1
+ 245 014c 03340101 		ld	s0,16(sp)
+ 246              		.cfi_restore 8
+ 247              		.cfi_def_cfa 2, 32
+ 248 0150 83348100 		ld	s1,8(sp)
+ 249              		.cfi_restore 9
+ 250              	.LVL16:
+ 251 0154 03390100 		ld	s2,0(sp)
+ 252              		.cfi_restore 18
+ 253              	.LVL17:
+ 254 0158 13010102 		addi	sp,sp,32
+ 255              		.cfi_def_cfa_offset 0
+ 256 015c 67800000 		jr	ra
+ 257              	.LVL18:
+ 258              	.L19:
+ 259              		.cfi_restore_state
+ 260              	.LBB28:
+ 261              	.LBB27:
+  40:src/Sleeping.cpp ****         if(cur) {
+ 262              		.loc 1 40 19 is_stmt 1 discriminator 1
+  40:src/Sleeping.cpp ****         if(cur) {
+ 263              		.loc 1 40 24 is_stmt 0 discriminator 1
+ 264 0160 17070000 		sd	a0,.LANCHOR0,a4
+ 264      2330A700 
+ 265 0168 6FF01FFC 		j	.L13
+ 266              	.L14:
+  43:src/Sleeping.cpp ****             else cur->time -= newElem->time;
+ 267              		.loc 1 43 18 is_stmt 1
+  43:src/Sleeping.cpp ****             else cur->time -= newElem->time;
+ 268              		.loc 1 43 40 is_stmt 0
+GAS LISTING /tmp/ccUIydbg.s 			page 8
+
+
+ 269 016c 83360501 		ld	a3,16(a0)
+  43:src/Sleeping.cpp ****             else cur->time -= newElem->time;
+ 270              		.loc 1 43 28
+ 271 0170 03B70701 		ld	a4,16(a5)
+ 272 0174 3307D740 		sub	a4,a4,a3
+ 273 0178 23B8E700 		sd	a4,16(a5)
+ 274              	.LBE27:
+ 275              	.LBE28:
+ 276              		.loc 1 46 1
+ 277 017c 6FF0DFFC 		j	.L8
+ 278              		.cfi_endproc
+ 279              	.LFE19:
+ 281              		.globl	_ZN8Sleeping4headE
+ 282              		.bss
+ 283              		.align	3
+ 284              		.set	.LANCHOR0,. + 0
+ 287              	_ZN8Sleeping4headE:
+ 288 0000 00000000 		.zero	8
+ 288      00000000 
+ 289              		.text
+ 290              	.Letext0:
+ 291              		.file 4 "src/../h/../h/../lib/hw.h"
+ 292              		.file 5 "src/../h/../h/../h/Scheduler.hpp"
+GAS LISTING /tmp/ccUIydbg.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Sleeping.cpp
+     /tmp/ccUIydbg.s:9      .text:0000000000000000 _ZN8Sleeping3getEv
+     /tmp/ccUIydbg.s:13     .text:0000000000000000 .L0 
+     /tmp/ccUIydbg.s:14     .text:0000000000000000 .L0 
+     /tmp/ccUIydbg.s:15     .text:0000000000000004 .L0 
+     /tmp/ccUIydbg.s:20     .text:0000000000000014 .L0 
+     /tmp/ccUIydbg.s:21     .text:0000000000000014 .L0 
+     /tmp/ccUIydbg.s:22     .text:0000000000000014 .L0 
+     /tmp/ccUIydbg.s:23     .text:0000000000000014 .L0 
+     /tmp/ccUIydbg.s:25     .text:0000000000000018 .L0 
+     /tmp/ccUIydbg.s:27     .text:0000000000000018 .L0 
+     /tmp/ccUIydbg.s:28     .text:0000000000000018 .L0 
+     /tmp/ccUIydbg.s:30     .text:0000000000000020 .L0 
+     /tmp/ccUIydbg.s:32     .text:0000000000000024 .L0 
+     /tmp/ccUIydbg.s:33     .text:0000000000000024 .L0 
+     /tmp/ccUIydbg.s:35     .text:0000000000000028 .L0 
+     /tmp/ccUIydbg.s:39     .text:0000000000000030 .L0 
+     /tmp/ccUIydbg.s:43     .text:0000000000000034 .L0 
+     /tmp/ccUIydbg.s:44     .text:0000000000000038 .L0 
+     /tmp/ccUIydbg.s:45     .text:0000000000000038 .L0 
+     /tmp/ccUIydbg.s:47     .text:000000000000003c .L0 
+     /tmp/ccUIydbg.s:48     .text:000000000000003c .L0 
+     /tmp/ccUIydbg.s:50     .text:0000000000000040 .L0 
+     /tmp/ccUIydbg.s:52     .text:0000000000000044 .L0 
+     /tmp/ccUIydbg.s:54     .text:0000000000000048 .L0 
+     /tmp/ccUIydbg.s:58     .text:000000000000004c .L0 
+     /tmp/ccUIydbg.s:60     .text:000000000000004c .L0 
+     /tmp/ccUIydbg.s:66     .text:0000000000000050 .L0 
+     /tmp/ccUIydbg.s:67     .text:0000000000000050 .L0 
+     /tmp/ccUIydbg.s:74     .text:0000000000000054 .L0 
+     /tmp/ccUIydbg.s:75     .text:0000000000000054 .L0 
+     /tmp/ccUIydbg.s:77     .text:0000000000000058 .L0 
+     /tmp/ccUIydbg.s:80     .text:000000000000005c .L0 
+     /tmp/ccUIydbg.s:81     .text:000000000000005c .L0 
+     /tmp/ccUIydbg.s:85     .text:0000000000000068 .L0 
+     /tmp/ccUIydbg.s:86     .text:0000000000000068 .L0 
+     /tmp/ccUIydbg.s:92     .text:000000000000006c .L0 
+     /tmp/ccUIydbg.s:93     .text:000000000000006c .L0 
+     /tmp/ccUIydbg.s:98     .text:0000000000000070 .L0 
+     /tmp/ccUIydbg.s:99     .text:0000000000000070 .L0 
+     /tmp/ccUIydbg.s:100    .text:0000000000000070 .L0 
+     /tmp/ccUIydbg.s:103    .text:0000000000000074 .L0 
+     /tmp/ccUIydbg.s:104    .text:0000000000000074 .L0 
+     /tmp/ccUIydbg.s:106    .text:0000000000000078 .L0 
+     /tmp/ccUIydbg.s:114    .text:0000000000000088 .L0 
+     /tmp/ccUIydbg.s:115    .text:0000000000000088 .L0 
+     /tmp/ccUIydbg.s:119    .text:0000000000000090 .L0 
+     /tmp/ccUIydbg.s:120    .text:0000000000000090 .L0 
+     /tmp/ccUIydbg.s:122    .text:0000000000000094 .L0 
+     /tmp/ccUIydbg.s:123    .text:0000000000000094 .L0 
+     /tmp/ccUIydbg.s:127    .text:00000000000000a0 .L0 
+     /tmp/ccUIydbg.s:133    .text:00000000000000a0 _ZN8Sleeping3putEP3TCBm
+     /tmp/ccUIydbg.s:136    .text:00000000000000a0 .L0 
+     /tmp/ccUIydbg.s:138    .text:00000000000000a0 .L0 
+     /tmp/ccUIydbg.s:139    .text:00000000000000a4 .L0 
+     /tmp/ccUIydbg.s:144    .text:00000000000000b4 .L0 
+GAS LISTING /tmp/ccUIydbg.s 			page 10
+
+
+     /tmp/ccUIydbg.s:145    .text:00000000000000b4 .L0 
+     /tmp/ccUIydbg.s:146    .text:00000000000000b4 .L0 
+     /tmp/ccUIydbg.s:147    .text:00000000000000b4 .L0 
+     /tmp/ccUIydbg.s:149    .text:00000000000000b8 .L0 
+     /tmp/ccUIydbg.s:153    .text:00000000000000c0 .L0 
+     /tmp/ccUIydbg.s:154    .text:00000000000000c0 .L0 
+     /tmp/ccUIydbg.s:162    .text:00000000000000cc .L0 
+     /tmp/ccUIydbg.s:170    .text:00000000000000d8 .L0 
+     /tmp/ccUIydbg.s:171    .text:00000000000000d8 .L0 
+     /tmp/ccUIydbg.s:173    .text:00000000000000e0 .L0 
+     /tmp/ccUIydbg.s:176    .text:00000000000000e4 .L0 
+     /tmp/ccUIydbg.s:181    .text:00000000000000ec .L0 
+     /tmp/ccUIydbg.s:182    .text:00000000000000ec .L0 
+     /tmp/ccUIydbg.s:188    .text:00000000000000f8 .L0 
+     /tmp/ccUIydbg.s:189    .text:00000000000000f8 .L0 
+     /tmp/ccUIydbg.s:193    .text:0000000000000100 .L0 
+     /tmp/ccUIydbg.s:194    .text:0000000000000100 .L0 
+     /tmp/ccUIydbg.s:195    .text:0000000000000100 .L0 
+     /tmp/ccUIydbg.s:197    .text:0000000000000104 .L0 
+     /tmp/ccUIydbg.s:201    .text:0000000000000108 .L0 
+     /tmp/ccUIydbg.s:202    .text:0000000000000108 .L0 
+     /tmp/ccUIydbg.s:204    .text:000000000000010c .L0 
+     /tmp/ccUIydbg.s:205    .text:000000000000010c .L0 
+     /tmp/ccUIydbg.s:207    .text:0000000000000110 .L0 
+     /tmp/ccUIydbg.s:209    .text:0000000000000114 .L0 
+     /tmp/ccUIydbg.s:212    .text:0000000000000118 .L0 
+     /tmp/ccUIydbg.s:214    .text:000000000000011c .L0 
+     /tmp/ccUIydbg.s:215    .text:000000000000011c .L0 
+     /tmp/ccUIydbg.s:218    .text:0000000000000120 .L0 
+     /tmp/ccUIydbg.s:219    .text:0000000000000120 .L0 
+     /tmp/ccUIydbg.s:221    .text:0000000000000124 .L0 
+     /tmp/ccUIydbg.s:224    .text:0000000000000128 .L0 
+     /tmp/ccUIydbg.s:226    .text:000000000000012c .L0 
+     /tmp/ccUIydbg.s:228    .text:0000000000000130 .L0 
+     /tmp/ccUIydbg.s:229    .text:0000000000000130 .L0 
+     /tmp/ccUIydbg.s:231    .text:0000000000000134 .L0 
+     /tmp/ccUIydbg.s:233    .text:0000000000000138 .L0 
+     /tmp/ccUIydbg.s:242    .text:0000000000000148 .L0 
+     /tmp/ccUIydbg.s:243    .text:000000000000014c .L0 
+     /tmp/ccUIydbg.s:244    .text:000000000000014c .L0 
+     /tmp/ccUIydbg.s:246    .text:0000000000000150 .L0 
+     /tmp/ccUIydbg.s:247    .text:0000000000000150 .L0 
+     /tmp/ccUIydbg.s:249    .text:0000000000000154 .L0 
+     /tmp/ccUIydbg.s:252    .text:0000000000000158 .L0 
+     /tmp/ccUIydbg.s:255    .text:000000000000015c .L0 
+     /tmp/ccUIydbg.s:259    .text:0000000000000160 .L0 
+     /tmp/ccUIydbg.s:263    .text:0000000000000160 .L0 
+     /tmp/ccUIydbg.s:264    .text:0000000000000160 .L0 
+     /tmp/ccUIydbg.s:268    .text:000000000000016c .L0 
+     /tmp/ccUIydbg.s:269    .text:000000000000016c .L0 
+     /tmp/ccUIydbg.s:271    .text:0000000000000170 .L0 
+     /tmp/ccUIydbg.s:277    .text:000000000000017c .L0 
+     /tmp/ccUIydbg.s:278    .text:0000000000000180 .L0 
+     /tmp/ccUIydbg.s:287    .bss:0000000000000000 _ZN8Sleeping4headE
+     /tmp/ccUIydbg.s:284    .bss:0000000000000000 .LANCHOR0
+     /tmp/ccUIydbg.s:293    .text:0000000000000180 .L0 
+     /tmp/ccUIydbg.s:28     .text:0000000000000018 .L0 
+GAS LISTING /tmp/ccUIydbg.s 			page 11
+
+
+     /tmp/ccUIydbg.s:115    .text:0000000000000088 .L0 
+     /tmp/ccUIydbg.s:123    .text:0000000000000094 .L0 
+     /tmp/ccUIydbg.s:171    .text:00000000000000d8 .L0 
+     /tmp/ccUIydbg.s:182    .text:00000000000000ec .L0 
+     /tmp/ccUIydbg.s:264    .text:0000000000000160 .L0 
+     /tmp/ccUIydbg.s:40     .text:0000000000000034 .L1
+     /tmp/ccUIydbg.s:62     .text:0000000000000050 .L3
+     /tmp/ccUIydbg.s:117    .text:0000000000000090 .L4
+     /tmp/ccUIydbg.s:111    .text:0000000000000088 .L5
+     /tmp/ccUIydbg.s:57     .text:000000000000004c .L6
+     /tmp/ccUIydbg.s:178    .text:00000000000000ec .L17
+     /tmp/ccUIydbg.s:199    .text:0000000000000108 .L9
+     /tmp/ccUIydbg.s:238    .text:0000000000000148 .L8
+     /tmp/ccUIydbg.s:210    .text:0000000000000118 .L11
+     /tmp/ccUIydbg.s:185    .text:00000000000000f8 .L18
+     /tmp/ccUIydbg.s:216    .text:0000000000000120 .L12
+     /tmp/ccUIydbg.s:258    .text:0000000000000160 .L19
+     /tmp/ccUIydbg.s:266    .text:000000000000016c .L14
+     /tmp/ccUIydbg.s:222    .text:0000000000000128 .L13
+     /tmp/ccUIydbg.s:1235   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccUIydbg.s:2442   .debug_str:00000000000004b5 .LASF87
+     /tmp/ccUIydbg.s:2364   .debug_str:00000000000002ad .LASF88
+     /tmp/ccUIydbg.s:2336   .debug_str:00000000000001b5 .LASF89
+     /tmp/ccUIydbg.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccUIydbg.s:290    .text:0000000000000180 .Letext0
+     /tmp/ccUIydbg.s:2272   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccUIydbg.s:2392   .debug_str:000000000000037d .LASF0
+     /tmp/ccUIydbg.s:2400   .debug_str:00000000000003af .LASF1
+     /tmp/ccUIydbg.s:2378   .debug_str:00000000000002fe .LASF2
+     /tmp/ccUIydbg.s:2350   .debug_str:000000000000024b .LASF4
+     /tmp/ccUIydbg.s:2432   .debug_str:000000000000046e .LASF3
+     /tmp/ccUIydbg.s:2294   .debug_str:00000000000000a9 .LASF5
+     /tmp/ccUIydbg.s:2316   .debug_str:0000000000000132 .LASF6
+     /tmp/ccUIydbg.s:2402   .debug_str:00000000000003c2 .LASF7
+     /tmp/ccUIydbg.s:2390   .debug_str:000000000000036a .LASF8
+     /tmp/ccUIydbg.s:2450   .debug_str:00000000000005a8 .LASF9
+     /tmp/ccUIydbg.s:2342   .debug_str:0000000000000209 .LASF10
+     /tmp/ccUIydbg.s:2414   .debug_str:0000000000000408 .LASF11
+     /tmp/ccUIydbg.s:2446   .debug_str:0000000000000583 .LASF12
+     /tmp/ccUIydbg.s:2296   .debug_str:00000000000000b0 .LASF13
+     /tmp/ccUIydbg.s:2276   .debug_str:0000000000000008 .LASF14
+     /tmp/ccUIydbg.s:2304   .debug_str:00000000000000e9 .LASF15
+     /tmp/ccUIydbg.s:2428   .debug_str:0000000000000452 .LASF16
+     /tmp/ccUIydbg.s:2312   .debug_str:0000000000000117 .LASF17
+     /tmp/ccUIydbg.s:2410   .debug_str:00000000000003f1 .LASF23
+     /tmp/ccUIydbg.s:2372   .debug_str:00000000000002e7 .LASF22
+     /tmp/ccUIydbg.s:2406   .debug_str:00000000000003e0 .LASF18
+     /tmp/ccUIydbg.s:2462   .debug_str:00000000000005fe .LASF19
+     /tmp/ccUIydbg.s:2278   .debug_str:0000000000000018 .LASF24
+     /tmp/ccUIydbg.s:2314   .debug_str:000000000000012d .LASF20
+     /tmp/ccUIydbg.s:2376   .debug_str:00000000000002f9 .LASF21
+     /tmp/ccUIydbg.s:2348   .debug_str:0000000000000237 .LASF90
+     /tmp/ccUIydbg.s:2302   .debug_str:00000000000000d1 .LASF78
+     /tmp/ccUIydbg.s:2282   .debug_str:0000000000000041 .LASF91
+     /tmp/ccUIydbg.s:2318   .debug_str:0000000000000139 .LASF25
+     /tmp/ccUIydbg.s:2362   .debug_str:00000000000002a0 .LASF26
+     /tmp/ccUIydbg.s:2384   .debug_str:0000000000000328 .LASF28
+GAS LISTING /tmp/ccUIydbg.s 			page 12
+
+
+     /tmp/ccUIydbg.s:2424   .debug_str:0000000000000442 .LASF92
+     /tmp/ccUIydbg.s:2320   .debug_str:0000000000000150 .LASF27
+     /tmp/ccUIydbg.s:2422   .debug_str:0000000000000436 .LASF29
+     /tmp/ccUIydbg.s:2430   .debug_str:0000000000000468 .LASF30
+     /tmp/ccUIydbg.s:2386   .debug_str:000000000000034f .LASF32
+     /tmp/ccUIydbg.s:2394   .debug_str:000000000000038a .LASF31
+     /tmp/ccUIydbg.s:2330   .debug_str:0000000000000189 .LASF33
+     /tmp/ccUIydbg.s:2436   .debug_str:0000000000000491 .LASF69
+     /tmp/ccUIydbg.s:2418   .debug_str:0000000000000420 .LASF93
+     /tmp/ccUIydbg.s:2308   .debug_str:00000000000000fb .LASF34
+     /tmp/ccUIydbg.s:2358   .debug_str:0000000000000285 .LASF35
+     /tmp/ccUIydbg.s:2398   .debug_str:00000000000003a9 .LASF36
+     /tmp/ccUIydbg.s:2382   .debug_str:0000000000000318 .LASF37
+     /tmp/ccUIydbg.s:2326   .debug_str:0000000000000178 .LASF56
+     /tmp/ccUIydbg.s:2404   .debug_str:00000000000003d5 .LASF40
+     /tmp/ccUIydbg.s:2340   .debug_str:00000000000001f2 .LASF42
+     /tmp/ccUIydbg.s:2380   .debug_str:000000000000030c .LASF38
+     /tmp/ccUIydbg.s:2464   .debug_str:0000000000000603 .LASF39
+     /tmp/ccUIydbg.s:2298   .debug_str:00000000000000c0 .LASF41
+     /tmp/ccUIydbg.s:2334   .debug_str:00000000000001a1 .LASF43
+     /tmp/ccUIydbg.s:2408   .debug_str:00000000000003e7 .LASF44
+     /tmp/ccUIydbg.s:2292   .debug_str:0000000000000095 .LASF45
+     /tmp/ccUIydbg.s:2280   .debug_str:0000000000000037 .LASF46
+     /tmp/ccUIydbg.s:2366   .debug_str:00000000000002be .LASF47
+     /tmp/ccUIydbg.s:2354   .debug_str:0000000000000271 .LASF48
+     /tmp/ccUIydbg.s:2448   .debug_str:0000000000000592 .LASF49
+     /tmp/ccUIydbg.s:2388   .debug_str:000000000000035f .LASF50
+     /tmp/ccUIydbg.s:2324   .debug_str:0000000000000161 .LASF51
+     /tmp/ccUIydbg.s:2322   .debug_str:0000000000000155 .LASF52
+     /tmp/ccUIydbg.s:2284   .debug_str:0000000000000049 .LASF53
+     /tmp/ccUIydbg.s:2374   .debug_str:00000000000002ec .LASF54
+     /tmp/ccUIydbg.s:2290   .debug_str:000000000000007c .LASF55
+     /tmp/ccUIydbg.s:2434   .debug_str:0000000000000480 .LASF57
+     /tmp/ccUIydbg.s:2328   .debug_str:0000000000000180 .LASF58
+     /tmp/ccUIydbg.s:2466   .debug_str:000000000000061a .LASF59
+     /tmp/ccUIydbg.s:2306   .debug_str:00000000000000f5 .LASF60
+     /tmp/ccUIydbg.s:2360   .debug_str:0000000000000298 .LASF61
+     /tmp/ccUIydbg.s:2356   .debug_str:000000000000027c .LASF62
+     /tmp/ccUIydbg.s:2346   .debug_str:0000000000000230 .LASF63
+     /tmp/ccUIydbg.s:2274   .debug_str:0000000000000000 .LASF64
+     /tmp/ccUIydbg.s:2416   .debug_str:0000000000000417 .LASF65
+     /tmp/ccUIydbg.s:2444   .debug_str:0000000000000579 .LASF66
+     /tmp/ccUIydbg.s:2440   .debug_str:00000000000004a6 .LASF67
+     /tmp/ccUIydbg.s:2412   .debug_str:00000000000003fb .LASF68
+     /tmp/ccUIydbg.s:2460   .debug_str:00000000000005e7 .LASF94
+     /tmp/ccUIydbg.s:2368   .debug_str:00000000000002d3 .LASF70
+     /tmp/ccUIydbg.s:2344   .debug_str:0000000000000217 .LASF72
+     /tmp/ccUIydbg.s:2426   .debug_str:0000000000000447 .LASF71
+     /tmp/ccUIydbg.s:2396   .debug_str:0000000000000393 .LASF73
+     /tmp/ccUIydbg.s:2332   .debug_str:000000000000019c .LASF74
+     /tmp/ccUIydbg.s:2286   .debug_str:0000000000000060 .LASF75
+     /tmp/ccUIydbg.s:2452   .debug_str:00000000000005b8 .LASF76
+     /tmp/ccUIydbg.s:2352   .debug_str:0000000000000252 .LASF77
+     /tmp/ccUIydbg.s:2288   .debug_str:0000000000000069 .LASF95
+     /tmp/ccUIydbg.s:2454   .debug_str:00000000000005bd .LASF79
+     /tmp/ccUIydbg.s:2310   .debug_str:0000000000000104 .LASF96
+     /tmp/ccUIydbg.s:134    .text:00000000000000a0 .LFB19
+GAS LISTING /tmp/ccUIydbg.s 			page 13
+
+
+     /tmp/ccUIydbg.s:279    .text:0000000000000180 .LFE19
+     /tmp/ccUIydbg.s:2086   .debug_loc:0000000000000000 .LLST4
+     /tmp/ccUIydbg.s:2108   .debug_loc:000000000000005f .LLST5
+     /tmp/ccUIydbg.s:2300   .debug_str:00000000000000c9 .LASF80
+     /tmp/ccUIydbg.s:2256   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccUIydbg.s:2130   .debug_loc:00000000000000be .LLST10
+     /tmp/ccUIydbg.s:2458   .debug_str:00000000000005e2 .LASF81
+     /tmp/ccUIydbg.s:2150   .debug_loc:000000000000011b .LLST11
+     /tmp/ccUIydbg.s:158    .text:00000000000000cc .LBB22
+     /tmp/ccUIydbg.s:167    .text:00000000000000d8 .LBE22
+     /tmp/ccUIydbg.s:2169   .debug_loc:0000000000000177 .LLST6
+     /tmp/ccUIydbg.s:2176   .debug_loc:000000000000019a .LLST7
+     /tmp/ccUIydbg.s:2184   .debug_loc:00000000000001be .LLST8
+     /tmp/ccUIydbg.s:2191   .debug_loc:00000000000001e1 .LLST9
+     /tmp/ccUIydbg.s:157    .text:00000000000000cc .LVL10
+     /tmp/ccUIydbg.s:10     .text:0000000000000000 .LFB18
+     /tmp/ccUIydbg.s:128    .text:00000000000000a0 .LFE18
+     /tmp/ccUIydbg.s:2198   .debug_loc:0000000000000204 .LLST0
+     /tmp/ccUIydbg.s:78     .text:000000000000005c .LBB16
+     /tmp/ccUIydbg.s:112    .text:0000000000000088 .LBE16
+     /tmp/ccUIydbg.s:2217   .debug_loc:0000000000000260 .LLST1
+     /tmp/ccUIydbg.s:88     .text:000000000000006c .LBB17
+     /tmp/ccUIydbg.s:96     .text:0000000000000070 .LBE17
+     /tmp/ccUIydbg.s:2228   .debug_loc:0000000000000296 .LLST2
+     /tmp/ccUIydbg.s:2236   .debug_loc:00000000000002ba .LLST3
+     /tmp/ccUIydbg.s:83     .text:0000000000000068 .LVL2
+     /tmp/ccUIydbg.s:108    .text:0000000000000084 .LVL6
+     /tmp/ccUIydbg.s:2420   .debug_str:0000000000000431 .LASF82
+     /tmp/ccUIydbg.s:2338   .debug_str:00000000000001d3 .LASF97
+     /tmp/ccUIydbg.s:2370   .debug_str:00000000000002e1 .LASF83
+     /tmp/ccUIydbg.s:2456   .debug_str:00000000000005d5 .LASF85
+     /tmp/ccUIydbg.s:2468   .debug_str:000000000000061f .LASF84
+     /tmp/ccUIydbg.s:2438   .debug_str:0000000000000496 .LASF86
+     /tmp/ccUIydbg.s:137    .text:00000000000000a0 .LVL8
+     /tmp/ccUIydbg.s:155    .text:00000000000000c4 .LVL9
+     /tmp/ccUIydbg.s:253    .text:0000000000000158 .LVL17
+     /tmp/ccUIydbg.s:257    .text:0000000000000160 .LVL18
+     /tmp/ccUIydbg.s:250    .text:0000000000000154 .LVL16
+     /tmp/ccUIydbg.s:184    .text:00000000000000f8 .LVL12
+     /tmp/ccUIydbg.s:192    .text:0000000000000100 .LVL13
+     /tmp/ccUIydbg.s:198    .text:0000000000000108 .LVL14
+     /tmp/ccUIydbg.s:237    .text:0000000000000148 .LVL15
+     /tmp/ccUIydbg.s:165    .text:00000000000000d8 .LVL11
+     /tmp/ccUIydbg.s:56     .text:000000000000004c .LVL0
+     /tmp/ccUIydbg.s:61     .text:0000000000000050 .LVL1
+     /tmp/ccUIydbg.s:101    .text:0000000000000074 .LVL5
+     /tmp/ccUIydbg.s:110    .text:0000000000000088 .LVL7
+     /tmp/ccUIydbg.s:94     .text:0000000000000070 .LVL4
+     /tmp/ccUIydbg.s:87     .text:000000000000006c .LVL3
+     /tmp/ccUIydbg.s:294    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccUIydbg.s:64     .text:0000000000000050 .LBB14
+     /tmp/ccUIydbg.s:68     .text:0000000000000054 .LBE14
+     /tmp/ccUIydbg.s:72     .text:0000000000000054 .LBB19
+     /tmp/ccUIydbg.s:125    .text:00000000000000a0 .LBE19
+     /tmp/ccUIydbg.s:174    .text:00000000000000e4 .LBB25
+     /tmp/ccUIydbg.s:179    .text:00000000000000ec .LBE25
+     /tmp/ccUIydbg.s:186    .text:00000000000000f8 .LBB26
+GAS LISTING /tmp/ccUIydbg.s 			page 14
+
+
+     /tmp/ccUIydbg.s:239    .text:0000000000000148 .LBE26
+     /tmp/ccUIydbg.s:261    .text:0000000000000160 .LBB27
+     /tmp/ccUIydbg.s:274    .text:000000000000017c .LBE27
+
+UNDEFINED SYMBOLS
+_ZN9Scheduler3putEP3TCB
+_ZdlPv
+_Znwm
